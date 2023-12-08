@@ -1,9 +1,6 @@
 name: CI/CD Pipeline with Grype
 
-on:
-  push:
-    branches:
-      - main  # You may adjust the branch as needed
+on: [push]
 jobs:
   vulnerability_scanning:
     runs-on: ubuntu-latest
@@ -20,28 +17,13 @@ jobs:
         curl -sL https://github.com/anchore/grype/releases/download/v0.13.0/grype_0.13.0_linux_amd64.tar.gz | tar -xz -C /tmp
         sudo mv /tmp/grype /usr/local/bin
         sudo chmod +x /usr/local/bin/grype
-
-    - name: Install MongoDB tools dependencies
-      run: |
-        sudo apt-get install -y gnupg
-
-    - name: Install MongoDB tools
-      run: |
-        sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv EA312927
-        echo "deb [arch=amd64] http://repo.mongodb.org/apt/ubuntu focal/mongodb-org/4.4 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-4.4.list
-        sudo apt-get update
-        sudo apt-get install -y mongodb-org-tools
-
-    - name: Run grype and echo the output
-      run: |
-        grype alpine:latest -o json > grype-report.json
-        cat grype-report.json  # Echo the content of the Grype report
-
-    - name: Push JSON data into MongoDB
-      run: |
-        mongoimport --db $MONGODB_DATABASE --collection $MONGODB_COLLECTION --file grype-report.json --jsonArray --uri $MONGODB_URI --authenticationDatabase admin
-      env:
-        MONGODB_DATABASE: cve_db
-        MONGODB_COLLECTION: cve_list
         
-        MONGODB_URI: ${{ secrets.MONGODB_CONNECTION_STRING }}
+
+    - name: Install pymongo
+      run: pip install pymongo
+
+    - name: Run grype and store the output in MongoDB
+      run: |
+        grype myrepo/myimage:latest -o json > grype-report.json
+        cat grype-report.json
+        mongoimport --uri="mongodb+srv://ratnesh:ratnesh@cluster0.3ka0uom.mongodb.net/cve_db?retryWrites=true&w=majority" --collection=cve_list --file=grype-report.json --jsonArray
