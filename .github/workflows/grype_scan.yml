@@ -24,6 +24,6 @@ jobs:
 
     - name: Run grype and store the output in MongoDB
       run: |
-        grype myrepo/myimage:latest -o json > grype-report.json
+        grype alpine:latest -o json > grype-report.json
         cat grype-report.json
         mongoimport --uri="mongodb+srv://ratnesh:ratnesh@cluster0.3ka0uom.mongodb.net/cve_db?retryWrites=true&w=majority" --collection=cve_list --file=grype-report.json --jsonArray
