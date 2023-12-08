@@ -1,12 +1,12 @@
 name: Run Grype Scan and Push to MongoDB
 
 on:
-  push:
+ push:
     branches:
       - main
 
 jobs:
-  grype_scan:
+ grype_scan:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -15,11 +15,14 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
 
+      - name: Update Grype vulnerability database
+        run: |
+          docker run --rm -v /root/.cache:/root/.cache -u root anchore/grype:latest db update
+
       - name: Run Grype scan
         id: grype_scan
         run: |
-          sudo docker run --rm -v "$(pwd)":/app -w /app/artifacts -u "$(id -u):$(id -g)" anchore/grype:latest --scope all-layers -o json ubuntu:latest > grype_scan_output.json
-
+          docker run --rm -v /tmp:/tmp -w /tmp -u root anchore/grype:latest --scope all-layers -o json > grype_scan_output.json
 
       - name: Insert Grype scan output into MongoDB
         env:
