@@ -1,29 +1,4 @@
-name: CI/CD Pipeline with Grype
-
-on: [push]
-
-jobs:
- grype_scan:
-    runs-on: ubuntu-latest
-
-    steps:
-    - name: Checkout repository
-      uses: actions/checkout@v2
-
-    - name: Set up Docker Buildx
-      uses: docker/setup-buildx-action@v1
-
-    - name: Update Grype vulnerability database
-      run: |
-          docker run --rm -v /root/.cache:/root/.cache anchore/grype:latest db update
-
-    - name: Run Grype scan
-      id: grype_scan
-      run: |
-        docker run --rm -v /tmp:/tmp -w /tmp -u ${{ github.actor }} anchore/grype:latest --scope all-layers -o json > grype_scan_output.json
-
-    - name: Upload Grype scan output
-      uses: actions/upload-artifact@v2
-      with:
-        name: grype_scan_output
-        path: grype_scan_output.json
+- name: Run Grype scan
+ id: grype_scan
+ run: |
+    docker run --rm -v /tmp:/tmp -w /tmp -u root anchore/grype:latest --scope all-layers -o json > grype_scan_output.json
