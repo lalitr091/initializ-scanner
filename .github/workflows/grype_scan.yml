@@ -24,6 +24,6 @@ jobs:
         grype alpine:latest -o json > grype-report.json
         mongoimport --db $MONGODB_DATABASE --collection $MONGODB_COLLECTION --file grype-report.json --jsonArray --uri $MONGODB_URI --authenticationDatabase admin
       env:
-        MONGODB_DATABASE: mydatabase
-        MONGODB_COLLECTION: cves
+        MONGODB_DATABASE: "cve_db"
+        MONGODB_COLLECTION: "cve_list"
         MONGODB_URI: ${{ secrets.MONGODB_CONNECTION_STRING }}
