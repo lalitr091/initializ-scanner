@@ -18,19 +18,7 @@ jobs:
         sudo mv /tmp/grype /usr/local/bin
         sudo chmod +x /usr/local/bin/grype
         
-    - name: Install MongoDB tools
+    - name: Run grype and echo the output
       run: |
-        sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv EA312927
-        echo "deb http://repo.mongodb.org/apt/ubuntu focal/mongodb-org/4.4 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-4.4.list
-        sudo apt-get update
-        sudo apt-get install -y mongodb-org-tools
-
-    - name: Run grype and store cves in mongodb
-      run: |
-        # Assuming the environment variables for MongoDB are already set
         grype alpine:latest -o json > grype-report.json
-        mongoimport --db $MONGODB_DATABASE --collection $MONGODB_COLLECTION --file grype-report.json --jsonArray --uri $MONGODB_URI --authenticationDatabase admin
-      env:
-        MONGODB_DATABASE: "cve_db"
-        MONGODB_COLLECTION: "cve_list"
-        MONGODB_URI: ${{ secrets.MONGODB_CONNECTION_STRING }}
+        cat grype-report.json  # Echo the content of the Grype report
