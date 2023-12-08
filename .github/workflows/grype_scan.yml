@@ -15,7 +15,7 @@ jobs:
 
     - name: Update Grype vulnerability database
       run: |
-        docker run --rm -v /root/.cache:/root/.cache -w /tmp -u ${{ github.actor }} anchore/grype:latest db update
+          docker run --rm -v /root/.cache:/root/.cache anchore/grype:latest db update
 
     - name: Run Grype scan
       id: grype_scan
