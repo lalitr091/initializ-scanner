@@ -4,34 +4,43 @@ on:
   push:
     branches:
       - main  # You may adjust the branch as needed
-
 jobs:
   vulnerability_scanning:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
+    - name: Checkout repository
+      uses: actions/checkout@v2
 
-      - name: Pull alpine:latest
-        run: docker pull alpine:latest
+    - name: Pull alpine:latest
+      run: docker pull alpine:latest
 
-      - name: Install grype
-        run: |
-          curl -sL https://github.com/anchore/grype/releases/download/v0.13.0/grype_0.13.0_linux_amd64.tar.gz | tar -xz -C /tmp
-          sudo mv /tmp/grype /usr/local/bin
-          sudo chmod +x /usr/local/bin/grype
+    - name: Install grype
+      run: |
+        curl -sL https://github.com/anchore/grype/releases/download/v0.13.0/grype_0.13.0_linux_amd64.tar.gz | tar -xz -C /tmp
+        sudo mv /tmp/grype /usr/local/bin
+        sudo chmod +x /usr/local/bin/grype
 
-      - name: Run grype and echo the output
-        run: |
-          grype alpine:latest -o json > grype-report.json
-          cat grype-report.json  # Echo the content of the Grype report
+    - name: Install MongoDB tools dependencies
+      run: |
+        sudo apt-get install -y gnupg
 
-      - name: Install MongoDB client
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y mongodb-mongosh
+    - name: Install MongoDB tools
+      run: |
+        sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv EA312927
+        echo "deb [arch=amd64] http://repo.mongodb.org/apt/ubuntu focal/mongodb-org/4.4 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-4.4.list
+        sudo apt-get update
+        sudo apt-get install -y mongodb-org-tools
 
-      - name: Store in MongoDB
-        run: |
-          mongosh "mongodb+srv://my-cluster.brujzi6.mongodb.net/" --apiVersion 1 --username db --eval 'db.grypeReports.insertOne($(cat grype-report.json))'
+    - name: Run grype and echo the output
+      run: |
+        grype alpine:latest -o json > grype-report.json
+        cat grype-report.json  # Echo the content of the Grype report
+
+    - name: Push JSON data into MongoDB
+      run: |
+        mongoimport --db $MONGODB_DATABASE --collection $MONGODB_COLLECTION --file grype-report.json --jsonArray --uri $MONGODB_URI --authenticationDatabase admin
+      env:
+        MONGODB_DATABASE: cve_db
+        MONGODB_COLLECTION: cve_list
+        MONGODB_URI: ${{ secrets.MONGODB_CONNECTION_STRING }}
