@@ -28,6 +28,7 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           wget -qO - https://raw.githubusercontent.com/anchore/grype/main/install.sh | sudo bash -s -- -b /usr/local/bin
+          pip install pymongo
 
 
       - name: Run Grype Scan and Update MongoDB
