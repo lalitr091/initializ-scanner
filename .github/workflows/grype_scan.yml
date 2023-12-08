@@ -1,10 +1,4 @@
-# name: Grype Scan and MongoDB Update
-
-# on:
-#   # schedule:
-#   #   - cron: '0 2 * * *'  # Schedule the workflow to run daily at 2:00 AM
-
-name: Grype Scan and MongoDB Update
+name: Run Grype Scan and Push to MongoDB
 
 on:
   push:
@@ -14,25 +8,23 @@ on:
 jobs:
   grype_scan:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout Repository
+      - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Set up Python
-        uses: actions/setup-python@v2
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+
+      - name: Run Grype scan
+        id: grype_scan
+        run: |
+          docker run --rm -v "$(pwd)":/app -w /app/artifacts -u "$(id -u):$(id -g)" anchore/grype:latest --scope all-layers -o json > grype_scan_output.json
+
+      - name: Insert Grype scan output into MongoDB
+        uses: mongodb-actions/setup-mongodb@v2
         with:
-          python-version: 3.x
-
-      - name: Install Grype
+          mongodb_connection_string: ${{ secrets.MONGODB_CONNECTION_STRING }}  # Use your secret for MongoDB connection string
+          mongodb_database_name: "cve_db"
+          mongodb_collection_name: "cve_list"
         run: |
-          python -m pip install --upgrade pip
-          wget -qO - https://raw.githubusercontent.com/anchore/grype/main/install.sh | sudo bash -s -- -b /usr/local/bin
-          pip install pymongo
-
-
-      - name: Run Grype Scan and Update MongoDB
-        run: |
-          python .github/scripts/grype_scan_and_mongodb_update.py
-        env:
-          MONGODB_CONNECTION_STRING: ${{ secrets.MONGODB_CONNECTION_STRING }}
+          mongoimport --uri=$MONGODB_CONNECTION_STRING --database=$MONGODB_DATABASE_NAME --collection=$MONGODB_COLLECTION_NAME --file=grype_scan_output.json --jsonArray
