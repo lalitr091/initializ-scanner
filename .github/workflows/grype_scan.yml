@@ -21,10 +21,9 @@ jobs:
           docker run --rm -v "$(pwd)":/app -w /app/artifacts -u "$(id -u):$(id -g)" anchore/grype:latest --scope all-layers -o json > grype_scan_output.json
 
       - name: Insert Grype scan output into MongoDB
-        uses: mongodb-actions/setup-mongodb@v2
-        with:
-          mongodb_connection_string: ${{ secrets.MONGODB_CONNECTION_STRING }}  # Use your secret for MongoDB connection string
-          mongodb_database_name: "cve_db"
-          mongodb_collection_name: "cve_list"
+        env:
+          MONGODB_CONNECTION_STRING: ${{ secrets.MONGODB_CONNECTION_STRING }}
+          MONGODB_DATABASE_NAME: "cve_db"
+          MONGODB_COLLECTION_NAME: "cve_list"
         run: |
           mongoimport --uri=$MONGODB_CONNECTION_STRING --database=$MONGODB_DATABASE_NAME --collection=$MONGODB_COLLECTION_NAME --file=grype_scan_output.json --jsonArray
