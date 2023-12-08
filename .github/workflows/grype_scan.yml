@@ -1,33 +1,29 @@
-name: Run Grype Scan and Push to MongoDB
+name: CI/CD Pipeline with Grype
 
-on:
- push:
-    branches:
-      - main
+on: [push]
 
 jobs:
  grype_scan:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
+    - name: Checkout repository
+      uses: actions/checkout@v2
 
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v1
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v1
 
-      - name: Update Grype vulnerability database
-        run: |
-          docker run --rm -v /root/.cache:/root/.cache -u root anchore/grype:latest db update
+    - name: Update Grype vulnerability database
+      run: |
+        docker run --rm -v /root/.cache:/root/.cache -w /tmp -u ${{ github.actor }} anchore/grype:latest db update
 
-      - name: Run Grype scan
-        id: grype_scan
-        run: |
-          docker run --rm -v /tmp:/tmp -w /tmp -u root anchore/grype:latest --scope all-layers -o json > grype_scan_output.json
+    - name: Run Grype scan
+      id: grype_scan
+      run: |
+        docker run --rm -v /tmp:/tmp -w /tmp -u ${{ github.actor }} anchore/grype:latest --scope all-layers -o json > grype_scan_output.json
 
-      - name: Insert Grype scan output into MongoDB
-        env:
-          MONGODB_CONNECTION_STRING: ${{ secrets.MONGODB_CONNECTION_STRING }}
-          MONGODB_DATABASE_NAME: "cve_db"
-          MONGODB_COLLECTION_NAME: "cve_list"
-        run: |
-          mongoimport --uri=$MONGODB_CONNECTION_STRING --database=$MONGODB_DATABASE_NAME --collection=$MONGODB_COLLECTION_NAME --file=grype_scan_output.json --jsonArray
+    - name: Upload Grype scan output
+      uses: actions/upload-artifact@v2
+      with:
+        name: grype_scan_output
+        path: grype_scan_output.json
