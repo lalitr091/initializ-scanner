@@ -43,4 +43,5 @@ jobs:
       env:
         MONGODB_DATABASE: cve_db
         MONGODB_COLLECTION: cve_list
+        
         MONGODB_URI: ${{ secrets.MONGODB_CONNECTION_STRING }}
