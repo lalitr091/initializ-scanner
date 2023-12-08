@@ -1,29 +1,29 @@
 name: CI/CD Pipeline with Grype
 
 on: [push]
-
 jobs:
- grype_scan:
+  vulnerability_scanning:
     runs-on: ubuntu-latest
 
     steps:
     - name: Checkout repository
       uses: actions/checkout@v2
 
-    - name: Set up Docker Buildx
-      uses: docker/setup-buildx-action@v1
+    - name: Pull alpine:latest
+      run: docker pull alpine:latest
 
-    - name: Update Grype vulnerability database
+    - name: Install grype
       run: |
-          docker run --rm -v /tmp:/tmp -w /tmp -u root anchore/grype:latest db update
+        curl -sL https://github.com/anchore/grype/releases/download/v0.13.0/grype_0.13.0_linux_amd64.tar.gz | tar -xz -C /tmp
+        sudo mv /tmp/grype /usr/local/bin
+        sudo chmod +x /usr/local/bin/grype
 
-    - name: Run Grype scan
-      id: grype_scan
+    - name: Run grype and store cves in mongodb
       run: |
-        docker run --rm -v /tmp:/tmp -w /tmp -u ${{ github.actor }} anchore/grype:latest --scope all-layers -o json > grype_scan_output.json
-
-    - name: Upload Grype scan output
-      uses: actions/upload-artifact@v2
-      with:
-        name: grype_scan_output
-        path: grype_scan_output.json
+        # Assuming the environment variables for MongoDB are already set
+        grype alpine:latest -o json > grype-report.json
+        mongoimport --db $MONGODB_DATABASE --collection $MONGODB_COLLECTION --file grype-report.json --jsonArray --uri $MONGODB_URI --authenticationDatabase admin
+      env:
+        MONGODB_DATABASE: mydatabase
+        MONGODB_COLLECTION: cves
+        MONGODB_URI: ${{ secrets.MONGODB_CONNECTION_STRING }}
