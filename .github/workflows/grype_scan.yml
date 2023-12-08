@@ -1,29 +1,36 @@
+# name: Grype Scan and MongoDB Update
+
+# on:
+#   # schedule:
+#   #   - cron: '0 2 * * *'  # Schedule the workflow to run daily at 2:00 AM
+
 name: Grype Scan and MongoDB Update
 
 on:
-  schedule:
-    - cron: '0 2 * * *'  # Schedule the workflow to run daily at 2:00 AM
+  push:
+    branches:
+      - main
 
 jobs:
   grype_scan:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout Repository
-      uses: actions/checkout@v2
+      - name: Checkout Repository
+        uses: actions/checkout@v2
 
-    - name: Set up Python
-      uses: actions/setup-python@v2
-      with:
-        python-version: 3.x
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.x
 
-    - name: Install Grype
-      run: |
-        python -m pip install --upgrade pip
-        pip install grype
+      - name: Install Grype
+        run: |
+          python -m pip install --upgrade pip
+          pip install grype
 
-    - name: Run Grype Scan and Update MongoDB
-      run: |
-        python .github/scripts/grype_scan_and_mongodb_update.py
-      env:
-        MONGODB_CONNECTION_STRING: ${{ secrets.MONGODB_CONNECTION_STRING }}
+      - name: Run Grype Scan and Update MongoDB
+        run: |
+          python .github/scripts/grype_scan_and_mongodb_update.py
+        env:
+          MONGODB_CONNECTION_STRING: ${{ secrets.MONGODB_CONNECTION_STRING }}
