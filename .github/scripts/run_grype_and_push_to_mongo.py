@@ -1,4 +1,4 @@
-# run_grype_and_push_to_mongo.py
+# ./workflow/script/run_grype_and_push_to_mongo.py
 
 import subprocess
 import pymongo
