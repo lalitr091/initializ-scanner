@@ -17,17 +17,18 @@ collection = db.cve_list
 
 # Parse Grype output and insert into MongoDB
 try:
-    cve_data = json.loads(grype_output.stdout)
-    
-    if isinstance(cve_data, list):
-        # If Grype output is a list, insert each item separately
-        for item in cve_data:
-            collection.insert_one(item)
-    elif isinstance(cve_data, dict):
-        # If Grype output is a dictionary, insert it as a single document
-        collection.insert_one(cve_data)
+    grype_data = json.loads(grype_output.stdout)
 
-    print("Data inserted into MongoDB successfully.")
+    if "matches" in grype_data:
+        matches = grype_data["matches"]
+
+        for match in matches:
+            # Insert each vulnerability match separately
+            collection.insert_one(match)
+
+        print("Data inserted into MongoDB successfully.")
+    else:
+        print("No vulnerability matches found in Grype output.")
 except json.JSONDecodeError as e:
     print(f"Error parsing Grype output: {e}")
 except Exception as e:
