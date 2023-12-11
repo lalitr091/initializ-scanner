@@ -5,7 +5,7 @@ import pymongo
 import json
 
 # Run Grype and store the output in a variable
-grype_output = subprocess.run(["grype", "alpine:latest", "-o", "json"], capture_output=True, text=True)
+grype_output = subprocess.run(["grype", "ubuntu:latest", "-o", "json"], capture_output=True, text=True)
 
 # Print Grype output
 print(grype_output.stdout)

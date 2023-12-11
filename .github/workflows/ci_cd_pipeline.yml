@@ -28,3 +28,4 @@ jobs:
 
       - name: Run Python script to execute Grype and push to MongoDB
         run: python .github/scripts/run_grype_and_push_to_mongo.py
+        
