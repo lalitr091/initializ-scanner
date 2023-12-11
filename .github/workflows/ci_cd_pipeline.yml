@@ -13,8 +13,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Pull alpine:latest
-        run: docker pull alpine:latest
+     
 
       - name: Install grype
         run: |
