@@ -2,7 +2,7 @@ import subprocess
 import pymongo
 import json
 
-image_name = "public.ecr.aws/initializ/kubectl"
+image_name = "ubuntu"
 
 try:
     # Run Grype for the image and store the output in a variable
