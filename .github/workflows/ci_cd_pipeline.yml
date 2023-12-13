@@ -1,8 +1,7 @@
 name: CI/CD Pipeline with Grype
 on:
-  push:
-    branches:
-      - main  # Change this to your main branch
+  schedule:
+    - cron: '0 1 * * *' 
 jobs:
   vulnerability_scanning:
     runs-on: ubuntu-latest
