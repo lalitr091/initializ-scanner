@@ -2,7 +2,7 @@ import subprocess
 import pymongo
 import json
 
-image_name = "ubuntu:latest"
+image_name = "public.ecr.aws/initializ/go:latest"
 
 try:
     # Run Grype for the image and store the output in a variable
