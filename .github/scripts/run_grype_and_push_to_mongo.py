@@ -17,24 +17,19 @@ collection = db.cve_list
 
 # Parse Grype output and insert into MongoDB
 try:
-    # Check if the Grype output is empty
-    if grype_output.stdout:
+    # Insert a message into MongoDB if no vulnerabilities found
+    if not grype_output.stdout:
+        collection.insert_one({"message": "No vulnerabilities found."})
+        print("No vulnerability matches found in Grype output. Message inserted into MongoDB.")
+    else:
         grype_data = json.loads(grype_output.stdout)
 
-        # Check if keys indicating no vulnerabilities are present
-        if all(key in grype_data for key in ["vulnerability", "relatedVulnerabilities", "matchDetails", "artifact"]):
-            # Insert an empty string into MongoDB if no vulnerabilities found
-            collection.insert_one({"message": "No vulnerabilities found."})
-            print("No vulnerability matches found in Grype output. Empty string inserted into MongoDB.")
-        else:
-            # Insert each vulnerability match separately
-            matches = grype_data["matches"]
-            for match in matches:
-                collection.insert_one(match)
+        # Insert each vulnerability match separately
+        matches = grype_data.get("matches", [])
+        for match in matches:
+            collection.insert_one(match)
 
-            print("Data inserted into MongoDB successfully.")
-    else:
-        print("Grype output is empty.")
+        print("Data inserted into MongoDB successfully.")
 except json.JSONDecodeError as e:
     print(f"Error parsing Grype output: {e}")
 except Exception as e:
