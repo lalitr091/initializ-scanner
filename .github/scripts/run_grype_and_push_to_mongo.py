@@ -8,7 +8,7 @@ import json
 grype_output = subprocess.run(["grype", "public.ecr.aws/t4s8c0c3/go:latest", "-o", "json"], capture_output=True, text=True)
 
 # Print Grype output
-print(grype_output.stdout)
+print(grype_output.stdout + "this is the output")
 
 # # Connect to MongoDB
 # client = pymongo.MongoClient("mongodb+srv://ratnesh:ratnesh@cluster0.3ka0uom.mongodb.net/cve_db?retryWrites=true&w=majority")
