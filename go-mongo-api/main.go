@@ -7,11 +7,12 @@ import (
 	"net/http"
 	"time"
 
+	"go-mongo-api/models" // Update this path based on your project structure
+
 	"github.com/gorilla/mux"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
-	"go-mongo-api/models" // Update this path based on your project structure
 )
 
 var client *mongo.Client
@@ -44,6 +45,7 @@ func getVulnerabilities(w http.ResponseWriter, r *http.Request) {
 	// Get today's date as a string (e.g., "13-12-2023")
 	todayDate := time.Now().Format("02-01-2006")
 	collectionName := todayDate + "_cve_list"
+	print(collectionName)
 
 	collection := client.Database("cve_db").Collection(collectionName)
 
