@@ -8,7 +8,8 @@ try:
     grype_output = subprocess.run(["grype", image_name, "-o", "json"], capture_output=True, text=True, check=True)
 
     # Print Grype output
-    print(grype_output.stdout)
+    print("Grype stdout:", grype_output.stdout)
+    print("Grype stderr:", grype_output.stderr)
 
     # Parse Grype output
     grype_data = json.loads(grype_output.stdout)
