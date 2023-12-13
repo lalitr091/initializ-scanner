@@ -1,4 +1,5 @@
 import subprocess
+import pymongo
 import json
 
 image_name = "public.ecr.aws/initializ/kubectl"
@@ -22,6 +23,8 @@ try:
 
 except subprocess.CalledProcessError as e:
     print(f"Error running Grype for {image_name}: {e}")
+    # Print stderr for more details
+    print("Grype stderr:", e.stderr)
 except json.JSONDecodeError as e:
     print(f"Error parsing Grype output for {image_name}: {e}")
 except Exception as e:
