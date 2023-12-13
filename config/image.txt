@@ -1,4 +1,3 @@
 public.ecr.aws/initializ/go
 public.ecr.aws/initializ/kubectl
 public.ecr.aws/initializ/aws-cli
-
