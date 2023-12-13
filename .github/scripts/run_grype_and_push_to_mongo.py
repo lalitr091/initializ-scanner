@@ -7,7 +7,6 @@ import json
 # Run Grype and store the output in a variable
 grype_output = subprocess.run(["grype", "public.ecr.aws/t4s8c0c3/go:latest", "-o", "json"], capture_output=True, text=True)
 
-
 # Print Grype output
 print(grype_output.stdout)
 
@@ -29,7 +28,9 @@ try:
 
         print("Data inserted into MongoDB successfully.")
     else:
-        print("No vulnerability matches found in Grype output.")
+        # Insert an empty string into MongoDB if no vulnerabilities found
+        collection.insert_one({"message": ""})
+        print("No vulnerability matches found in Grype output. Empty string inserted into MongoDB.")
 except json.JSONDecodeError as e:
     print(f"Error parsing Grype output: {e}")
 except Exception as e:
