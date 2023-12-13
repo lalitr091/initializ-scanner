@@ -21,20 +21,19 @@ for image_name in image_names:
         # Run Grype for each image and store the output in a variable
         grype_output = subprocess.run(["grype", image_name, "-o", "json"], capture_output=True, text=True, check=True)
 
-        # Print Grype output
-        print(grype_output.stdout)
         # Parse Grype output and insert into MongoDB
         grype_data = json.loads(grype_output.stdout)
         matches = grype_data.get("matches", [])
         for match in matches:
             # Include the image name in the MongoDB document
             match["image"] = image_name
+            match["message"] = "Vulnerability found."
             collection.insert_one(match)
         if not matches:
             # Insert a message into MongoDB if no vulnerabilities found
             collection.insert_one({"image": image_name, "message": "No vulnerabilities found."})
             print(f"No vulnerability matches found in Grype output for {image_name}. Message inserted into MongoDB.")
         else:
-            print(f"Data inserted into MongoDB for {image_name} successfully.")
+            print(f"Data inserted into MongoDB for {image_name} successfully, Vulnerability found")
     except subprocess.CalledProcessError as e:
         print(f"Error running Grype for {image_name}: {e}")
