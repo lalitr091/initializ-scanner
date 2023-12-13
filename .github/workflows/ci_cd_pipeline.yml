@@ -1,28 +1,23 @@
 name: CI/CD Pipeline with Grype
-
 on:
-  workflow_dispatch:
-
+  push:
+    branches:
+      - main  # Change this to your main branch
 jobs:
   vulnerability_scanning:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
-
      
-
       - name: Install grype
         run: |
           bash
           curl -sL https://github.com/anchore/grype/releases/download/v0.13.0/grype_0.13.0_linux_amd64.tar.gz | tar -xz -C /tmp
           sudo mv /tmp/grype /usr/local/bin
           sudo chmod +x /usr/local/bin/grype
-
+          
       - name: Install pymongo
         run: pip install pymongo
-
       - name: Run Python script to execute Grype and push to MongoDB
         run: python .github/scripts/run_grype_and_push_to_mongo.py
-        
