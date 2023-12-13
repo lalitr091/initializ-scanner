@@ -1,3 +1,5 @@
+ubuntu:latest
+https://cgr.dev/chainguard/go:latest
 public.ecr.aws/initializ/kubectl
 public.ecr.aws/initializ/aws-cli
 public.ecr.aws/initializ/go
