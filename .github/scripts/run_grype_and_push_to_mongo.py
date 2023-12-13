@@ -1,6 +1,7 @@
 import subprocess
 import pymongo
 import json
+from datetime import datetime
 
 # Read image names from the image.txt file in the config folder
 image_file_path = "config/image.txt"
@@ -12,9 +13,11 @@ except FileNotFoundError:
     exit(1)
 
 # Connect to MongoDB
-client = pymongo.MongoClient("mongodb+srv://ratnesh:ratnesh@cluster0.3ka0uom.mongodb.net/cve_db?retryWrites=true&w=majority")
+client = ${{ secrets.MONGODB_CONNECTION_STRING }}
+today_date = datetime.now().strftime("%d-%m-%Y")
+collection_name = f"{today_date}_cve_list"
 db = client.cve_db
-collection = db.cve_list
+collection = db[collection_name]
 
 for image_name in image_names:
     try:
