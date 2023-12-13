@@ -2,7 +2,7 @@ import subprocess
 import pymongo
 import json
 
-image_name = "ubuntu"
+image_name = "ubuntu:latest"
 
 try:
     # Run Grype for the image and store the output in a variable
