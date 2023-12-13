@@ -13,7 +13,7 @@ except FileNotFoundError:
     exit(1)
 
 # Connect to MongoDB
-client = ${{ secrets.MONGODB_CONNECTION_STRING }}
+client = pymongo.MongoClient("mongodb+srv://ratnesh:ratnesh@cluster0.3ka0uom.mongodb.net/cve_db?retryWrites=true&w=majority")
 today_date = datetime.now().strftime("%d-%m-%Y")
 collection_name = f"{today_date}_cve_list"
 db = client.cve_db
