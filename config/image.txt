@@ -1,3 +1,5 @@
 public.ecr.aws/initializ/go
+public.ecr.aws/initializ/ruby
+public.ecr.aws/initializ/python
 public.ecr.aws/initializ/kubectl
 public.ecr.aws/initializ/aws-cli
