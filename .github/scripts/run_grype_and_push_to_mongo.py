@@ -3,21 +3,21 @@ import pymongo
 import json
 
 # Read image names from the image.txt file in the config folder
-image_file_path = "config/image.txt"
-try:
-    with open(image_file_path, "r") as file:
-        image_names = [line.strip() for line in file.readlines()]
-except FileNotFoundError:
-    print(f"Error: Image file '{image_file_path}' not found.")
-    exit(1)
+image_file_path = "public.ecr.aws/initializ/kubectl"
+# try:
+#     with open(image_file_path, "r") as file:
+#         image_names = [line.strip() for line in file.readlines()]
+# except FileNotFoundError:
+#     print(f"Error: Image file '{image_file_path}' not found.")
+#     exit(1)
 
 # Connect to MongoDB
 client = pymongo.MongoClient("mongodb+srv://ratnesh:ratnesh@cluster0.3ka0uom.mongodb.net/cve_db?retryWrites=true&w=majority")
 db = client.cve_db
 collection = db.cve_list
 
-for image_name in image_names:
-    try:
+# for image_name in image_names:
+#     try:
         # Run Grype for each image and store the output in a variable
         grype_output = subprocess.run(["grype", image_name, "-o", "json"], capture_output=True, text=True, check=True)
 
