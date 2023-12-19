@@ -10,6 +10,7 @@ import (
 	"go-mongo-api/models" // Update this path based on your project structure
 
 	"github.com/gorilla/mux"
+	"github.com/gorilla/handlers"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
@@ -37,7 +38,9 @@ func main() {
 
 	router.HandleFunc("/vulnerabilities", getVulnerabilities).Methods("GET")
 
-	log.Fatal(http.ListenAndServe(":8080", router))
+	log.Fatal(http.ListenAndServe(":8080", handlers.CORS(handlers.AllowedHeaders([]string{"Content-Type", "Authorization"}),
+		handlers.AllowedMethods([]string{"GET", "POST", "PUT", "DELETE"}),
+		handlers.AllowedOrigins([]string{"http://localhost:8000"}))(router)))
 }
 
 func getVulnerabilities(w http.ResponseWriter, r *http.Request) {
