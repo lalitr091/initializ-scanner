@@ -90,8 +90,8 @@ for(let  i =0;i<data.length;i++)
         {/* <th class="py-2 px-4 border-b">Source</th> */}
         <th class="py-2 px-4 border-b">Namespace</th>
         <th class="py-2 px-4 border-b">Severity</th>
-        <th class="py-2 px-4 border-b">Fixes version</th>
-        <th class="py-2 px-4 border-b">Fixes state</th>
+        <th class="py-2 px-4 border-b">Fixed version</th>
+        <th class="py-2 px-4 border-b">Fixed state</th>
         <th class="py-2 px-4 border-b">Message</th>
       </tr>
     </thead>
