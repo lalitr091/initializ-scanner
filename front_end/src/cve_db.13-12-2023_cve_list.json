@@ -1,0 +1,1399 @@
+[{
+  "_id": {
+    "$oid": "6579a0bcb7b38e0555d368a2"
+  },
+  "image": "public.ecr.aws/initializ/go",
+  "message": "No vulnerabilities found."
+},
+{
+  "_id": {
+    "$oid": "6579a0beb7b38e0555d368a3"
+  },
+  "vulnerability": {
+    "id": "GHSA-hq6q-c2x6-hmch",
+    "dataSource": "https://github.com/advisories/GHSA-hq6q-c2x6-hmch",
+    "namespace": "github:language:go",
+    "severity": "High",
+    "urls": [
+      "https://github.com/advisories/GHSA-hq6q-c2x6-hmch"
+    ],
+    "description": "Kubernetes Improper Input Validation vulnerability",
+    "cvss": [
+      {
+        "version": "3.1",
+        "vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H",
+        "metrics": {
+          "baseScore": 8.8,
+          "exploitabilityScore": 2.8,
+          "impactScore": 5.9
+        },
+        "vendorMetadata": {
+          "base_severity": "High",
+          "status": "N/A"
+        }
+      }
+    ],
+    "fix": {
+      "versions": [
+        "1.28.4"
+      ],
+      "state": "fixed"
+    },
+    "advisories": []
+  },
+  "relatedVulnerabilities": [
+    {
+      "id": "CVE-2023-5528",
+      "dataSource": "https://nvd.nist.gov/vuln/detail/CVE-2023-5528",
+      "namespace": "nvd:cpe",
+      "severity": "High",
+      "urls": [
+        "https://github.com/kubernetes/kubernetes/issues/121879",
+        "https://groups.google.com/g/kubernetes-security-announce/c/SL_d4NR8pzA",
+        "https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/3JH444PWZBINXLLFV7XLIJIZJHSK6UEZ/",
+        "https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/4XZIX727JIKF5RQW7RVVBLWXBCDIBJA7/",
+        "https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/7MPGMITSZXUCAVO7Q75675SOLXC2XXU4/"
+      ],
+      "description": "A security issue was discovered in Kubernetes where a user that can create pods and persistent volumes on Windows nodes may be able to escalate to admin privileges on those nodes. Kubernetes clusters are only affected if they are using an in-tree storage plugin for Windows nodes.",
+      "cvss": [
+        {
+          "source": "nvd@nist.gov",
+          "type": "Primary",
+          "version": "3.1",
+          "vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H",
+          "metrics": {
+            "baseScore": 8.8,
+            "exploitabilityScore": 2.8,
+            "impactScore": 5.9
+          },
+          "vendorMetadata": {}
+        },
+        {
+          "source": "jordan@liggitt.net",
+          "type": "Secondary",
+          "version": "3.1",
+          "vector": "CVSS:3.1/AV:N/AC:L/PR:H/UI:N/S:U/C:H/I:H/A:H",
+          "metrics": {
+            "baseScore": 7.2,
+            "exploitabilityScore": 1.2,
+            "impactScore": 5.9
+          },
+          "vendorMetadata": {}
+        }
+      ]
+    }
+  ],
+  "matchDetails": [
+    {
+      "type": "exact-direct-match",
+      "matcher": "go-module-matcher",
+      "searchedBy": {
+        "language": "go",
+        "namespace": "github:language:go",
+        "package": {
+          "name": "k8s.io/kubernetes",
+          "version": "v1.28.3-dirty"
+        }
+      },
+      "found": {
+        "versionConstraint": ">=1.28.0,<1.28.4 (unknown)",
+        "vulnerabilityID": "GHSA-hq6q-c2x6-hmch"
+      }
+    }
+  ],
+  "artifact": {
+    "id": "cd01424d37612235",
+    "name": "k8s.io/kubernetes",
+    "version": "v1.28.3-dirty",
+    "type": "go-module",
+    "locations": [
+      {
+        "path": "/usr/bin/kubectl-1.28",
+        "layerID": "sha256:00001d7c4e51f772d36d06c27318e1a2e7b743efa4a784871cba4a5efd28dda6"
+      }
+    ],
+    "language": "go",
+    "licenses": [],
+    "cpes": [],
+    "purl": "pkg:golang/k8s.io/kubernetes@v1.28.3-dirty",
+    "upstreams": [],
+    "metadataType": "GolangBinMetadata",
+    "metadata": {
+      "goBuildSettings": {
+        "-asmflags": "all=-trimpath=/home/build/_output/local/go/src/k8s.io/kubernetes",
+        "-buildmode": "exe",
+        "-compiler": "gc",
+        "-gcflags": "all=-trimpath=/home/build/_output/local/go/src/k8s.io/kubernetes ",
+        "-ldflags": "all=-X 'k8s.io/kubernetes/vendor/k8s.io/client-go/pkg/version.buildDate=2023-10-18T18:17:54Z' -X 'k8s.io/kubernetes/vendor/k8s.io/component-base/version.buildDate=2023-10-18T18:17:54Z' -X 'k8s.io/client-go/pkg/version.buildDate=2023-10-18T18:17:54Z' -X 'k8s.io/component-base/version.buildDate=2023-10-18T18:17:54Z' -X 'k8s.io/kubernetes/vendor/k8s.io/client-go/pkg/version.gitCommit=a8a1abc25cad87333840cd7d54be2efaf31a3177' -X 'k8s.io/kubernetes/vendor/k8s.io/component-base/version.gitCommit=a8a1abc25cad87333840cd7d54be2efaf31a3177' -X 'k8s.io/client-go/pkg/version.gitCommit=a8a1abc25cad87333840cd7d54be2efaf31a3177' -X 'k8s.io/component-base/version.gitCommit=a8a1abc25cad87333840cd7d54be2efaf31a3177' -X 'k8s.io/kubernetes/vendor/k8s.io/client-go/pkg/version.gitTreeState=dirty' -X 'k8s.io/kubernetes/vendor/k8s.io/component-base/version.gitTreeState=dirty' -X 'k8s.io/client-go/pkg/version.gitTreeState=dirty' -X 'k8s.io/component-base/version.gitTreeState=dirty' -X 'k8s.io/kubernetes/vendor/k8s.io/client-go/pkg/version.gitVersion=v1.28.3-dirty' -X 'k8s.io/kubernetes/vendor/k8s.io/component-base/version.gitVersion=v1.28.3-dirty' -X 'k8s.io/client-go/pkg/version.gitVersion=v1.28.3-dirty' -X 'k8s.io/component-base/version.gitVersion=v1.28.3-dirty' -X 'k8s.io/kubernetes/vendor/k8s.io/client-go/pkg/version.gitMajor=1' -X 'k8s.io/kubernetes/vendor/k8s.io/component-base/version.gitMajor=1' -X 'k8s.io/client-go/pkg/version.gitMajor=1' -X 'k8s.io/component-base/version.gitMajor=1' -X 'k8s.io/kubernetes/vendor/k8s.io/client-go/pkg/version.gitMinor=28+' -X 'k8s.io/kubernetes/vendor/k8s.io/component-base/version.gitMinor=28+' -X 'k8s.io/client-go/pkg/version.gitMinor=28+' -X 'k8s.io/component-base/version.gitMinor=28+'  -s -w",
+        "-tags": "selinux,notest",
+        "CGO_ENABLED": "0",
+        "GOAMD64": "v1",
+        "GOARCH": "amd64",
+        "GOOS": "linux",
+        "vcs": "git",
+        "vcs.modified": "true",
+        "vcs.revision": "a8a1abc25cad87333840cd7d54be2efaf31a3177",
+        "vcs.time": "2023-10-18T11:33:16Z"
+      },
+      "goCompiledVersion": "go1.20.10",
+      "architecture": "amd64",
+      "mainModule": "k8s.io/kubernetes"
+    }
+  },
+  "image": "public.ecr.aws/initializ/kubectl",
+  "message": "Vulnerability found."
+},
+{
+  "_id": {
+    "$oid": "6579a0beb7b38e0555d368a4"
+  },
+  "vulnerability": {
+    "id": "CVE-2023-45285",
+    "dataSource": "https://nvd.nist.gov/vuln/detail/CVE-2023-45285",
+    "namespace": "nvd:cpe",
+    "severity": "High",
+    "urls": [
+      "https://go.dev/cl/540257",
+      "https://go.dev/issue/63845",
+      "https://groups.google.com/g/golang-dev/c/6ypN5EjibjM/m/KmLVYH_uAgAJ",
+      "https://pkg.go.dev/vuln/GO-2023-2383"
+    ],
+    "description": "Using go get to fetch a module with the \".git\" suffix may unexpectedly fallback to the insecure \"git://\" protocol if the module is unavailable via the secure \"https://\" and \"git+ssh://\" protocols, even if GOINSECURE is not set for said module. This only affects users who are not using the module proxy and are fetching modules directly (i.e. GOPROXY=off).",
+    "cvss": [
+      {
+        "source": "nvd@nist.gov",
+        "type": "Primary",
+        "version": "3.1",
+        "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N",
+        "metrics": {
+          "baseScore": 7.5,
+          "exploitabilityScore": 3.9,
+          "impactScore": 3.6
+        },
+        "vendorMetadata": {}
+      }
+    ],
+    "fix": {
+      "versions": [],
+      "state": "unknown"
+    },
+    "advisories": []
+  },
+  "relatedVulnerabilities": [],
+  "matchDetails": [
+    {
+      "type": "cpe-match",
+      "matcher": "go-module-matcher",
+      "searchedBy": {
+        "namespace": "nvd:cpe",
+        "cpes": [
+          "cpe:2.3:a:golang:go:1.20.10:-:*:*:*:*:*:*"
+        ],
+        "Package": {
+          "name": "stdlib",
+          "version": "go1.20.10"
+        }
+      },
+      "found": {
+        "vulnerabilityID": "CVE-2023-45285",
+        "versionConstraint": "< 1.20.12 || >= 1.21.0-0, < 1.21.5 (unknown)",
+        "cpes": [
+          "cpe:2.3:a:golang:go:*:*:*:*:*:*:*:*"
+        ]
+      }
+    }
+  ],
+  "artifact": {
+    "id": "48ef69f205573613",
+    "name": "stdlib",
+    "version": "go1.20.10",
+    "type": "go-module",
+    "locations": [
+      {
+        "path": "/usr/bin/kubectl-1.28",
+        "layerID": "sha256:00001d7c4e51f772d36d06c27318e1a2e7b743efa4a784871cba4a5efd28dda6"
+      }
+    ],
+    "language": "go",
+    "licenses": [
+      "BSD-3-Clause"
+    ],
+    "cpes": [
+      "cpe:2.3:a:golang:go:1.20.10:-:*:*:*:*:*:*"
+    ],
+    "purl": "pkg:golang/stdlib@1.20.10",
+    "upstreams": [],
+    "metadataType": "GolangBinMetadata",
+    "metadata": {
+      "goCompiledVersion": "go1.20.10",
+      "architecture": ""
+    }
+  },
+  "image": "public.ecr.aws/initializ/kubectl",
+  "message": "Vulnerability found."
+},
+{
+  "_id": {
+    "$oid": "6579a0beb7b38e0555d368a5"
+  },
+  "vulnerability": {
+    "id": "CVE-2023-39326",
+    "dataSource": "https://nvd.nist.gov/vuln/detail/CVE-2023-39326",
+    "namespace": "nvd:cpe",
+    "severity": "Medium",
+    "urls": [
+      "https://go.dev/cl/547335",
+      "https://go.dev/issue/64433",
+      "https://groups.google.com/g/golang-dev/c/6ypN5EjibjM/m/KmLVYH_uAgAJ",
+      "https://pkg.go.dev/vuln/GO-2023-2382"
+    ],
+    "description": "A malicious HTTP sender can use chunk extensions to cause a receiver reading from a request or response body to read many more bytes from the network than are in the body. A malicious HTTP client can further exploit this to cause a server to automatically read a large amount of data (up to about 1GiB) when a handler fails to read the entire body of a request. Chunk extensions are a little-used HTTP feature which permit including additional metadata in a request or response body sent using the chunked encoding. The net/http chunked encoding reader discards this metadata. A sender can exploit this by inserting a large metadata segment with each byte transferred. The chunk reader now produces an error if the ratio of real body to encoded bytes grows too small.",
+    "cvss": [
+      {
+        "source": "nvd@nist.gov",
+        "type": "Primary",
+        "version": "3.1",
+        "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:N",
+        "metrics": {
+          "baseScore": 5.3,
+          "exploitabilityScore": 3.9,
+          "impactScore": 1.4
+        },
+        "vendorMetadata": {}
+      }
+    ],
+    "fix": {
+      "versions": [],
+      "state": "unknown"
+    },
+    "advisories": []
+  },
+  "relatedVulnerabilities": [],
+  "matchDetails": [
+    {
+      "type": "cpe-match",
+      "matcher": "go-module-matcher",
+      "searchedBy": {
+        "namespace": "nvd:cpe",
+        "cpes": [
+          "cpe:2.3:a:golang:go:1.20.10:-:*:*:*:*:*:*"
+        ],
+        "Package": {
+          "name": "stdlib",
+          "version": "go1.20.10"
+        }
+      },
+      "found": {
+        "vulnerabilityID": "CVE-2023-39326",
+        "versionConstraint": "< 1.20.12 || >= 1.21.0-0, < 1.21.5 (unknown)",
+        "cpes": [
+          "cpe:2.3:a:golang:go:*:*:*:*:*:*:*:*"
+        ]
+      }
+    }
+  ],
+  "artifact": {
+    "id": "48ef69f205573613",
+    "name": "stdlib",
+    "version": "go1.20.10",
+    "type": "go-module",
+    "locations": [
+      {
+        "path": "/usr/bin/kubectl-1.28",
+        "layerID": "sha256:00001d7c4e51f772d36d06c27318e1a2e7b743efa4a784871cba4a5efd28dda6"
+      }
+    ],
+    "language": "go",
+    "licenses": [
+      "BSD-3-Clause"
+    ],
+    "cpes": [
+      "cpe:2.3:a:golang:go:1.20.10:-:*:*:*:*:*:*"
+    ],
+    "purl": "pkg:golang/stdlib@1.20.10",
+    "upstreams": [],
+    "metadataType": "GolangBinMetadata",
+    "metadata": {
+      "goCompiledVersion": "go1.20.10",
+      "architecture": ""
+    }
+  },
+  "image": "public.ecr.aws/initializ/kubectl",
+  "message": "Vulnerability found."
+},
+{
+  "_id": {
+    "$oid": "6579a0c8b7b38e0555d368a6"
+  },
+  "vulnerability": {
+    "id": "CVE-2023-5363",
+    "dataSource": "http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2023-5363",
+    "namespace": "wolfi:distro:wolfi:rolling",
+    "severity": "High",
+    "urls": [
+      "http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2023-5363"
+    ],
+    "cvss": [],
+    "fix": {
+      "versions": [
+        "3.1.4-r0"
+      ],
+      "state": "fixed"
+    },
+    "advisories": []
+  },
+  "relatedVulnerabilities": [
+    {
+      "id": "CVE-2023-5363",
+      "dataSource": "https://nvd.nist.gov/vuln/detail/CVE-2023-5363",
+      "namespace": "nvd:cpe",
+      "severity": "High",
+      "urls": [
+        "http://www.openwall.com/lists/oss-security/2023/10/24/1",
+        "https://git.openssl.org/gitweb/?p=openssl.git;a=commitdiff;h=0df40630850fb2740e6be6890bb905d3fc623b2d",
+        "https://git.openssl.org/gitweb/?p=openssl.git;a=commitdiff;h=5f69f5c65e483928c4b28ed16af6e5742929f1ee",
+        "https://security.netapp.com/advisory/ntap-20231027-0010/",
+        "https://www.debian.org/security/2023/dsa-5532",
+        "https://www.openssl.org/news/secadv/20231024.txt"
+      ],
+      "description": "Issue summary: A bug has been identified in the processing of key and\ninitialisation vector (IV) lengths.  This can lead to potential truncation\nor overruns during the initialisation of some symmetric ciphers.\n\nImpact summary: A truncation in the IV can result in non-uniqueness,\nwhich could result in loss of confidentiality for some cipher modes.\n\nWhen calling EVP_EncryptInit_ex2(), EVP_DecryptInit_ex2() or\nEVP_CipherInit_ex2() the provided OSSL_PARAM array is processed after\nthe key and IV have been established.  Any alterations to the key length,\nvia the \"keylen\" parameter or the IV length, via the \"ivlen\" parameter,\nwithin the OSSL_PARAM array will not take effect as intended, potentially\ncausing truncation or overreading of these values.  The following ciphers\nand cipher modes are impacted: RC2, RC4, RC5, CCM, GCM and OCB.\n\nFor the CCM, GCM and OCB cipher modes, truncation of the IV can result in\nloss of confidentiality.  For example, when following NIST's SP 800-38D\nsection 8.2.1 guidance for constructing a deterministic IV for AES in\nGCM mode, truncation of the counter portion could lead to IV reuse.\n\nBoth truncations and overruns of the key and overruns of the IV will\nproduce incorrect results and could, in some cases, trigger a memory\nexception.  However, these issues are not currently assessed as security\ncritical.\n\nChanging the key and/or IV lengths is not considered to be a common operation\nand the vulnerable API was recently introduced. Furthermore it is likely that\napplication developers will have spotted this problem during testing since\ndecryption would fail unless both peers in the communication were similarly\nvulnerable. For these reasons we expect the probability of an application being\nvulnerable to this to be quite low. However if an application is vulnerable then\nthis issue is considered very serious. For these reasons we have assessed this\nissue as Moderate severity overall.\n\nThe OpenSSL SSL/TLS implementation is not affected by this issue.\n\nThe OpenSSL 3.0 and 3.1 FIPS providers are not affected by this because\nthe issue lies outside of the FIPS provider boundary.\n\nOpenSSL 3.1 and 3.0 are vulnerable to this issue.",
+      "cvss": [
+        {
+          "source": "nvd@nist.gov",
+          "type": "Primary",
+          "version": "3.1",
+          "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N",
+          "metrics": {
+            "baseScore": 7.5,
+            "exploitabilityScore": 3.9,
+            "impactScore": 3.6
+          },
+          "vendorMetadata": {}
+        }
+      ]
+    }
+  ],
+  "matchDetails": [
+    {
+      "type": "exact-indirect-match",
+      "matcher": "apk-matcher",
+      "searchedBy": {
+        "distro": {
+          "type": "wolfi",
+          "version": "20230201"
+        },
+        "namespace": "wolfi:distro:wolfi:rolling",
+        "package": {
+          "name": "openssl",
+          "version": "3.1.3-r0"
+        }
+      },
+      "found": {
+        "versionConstraint": "< 3.1.4-r0 (apk)",
+        "vulnerabilityID": "CVE-2023-5363"
+      }
+    }
+  ],
+  "artifact": {
+    "id": "88fec4ad2bcb178c",
+    "name": "libcrypto3",
+    "version": "3.1.3-r0",
+    "type": "apk",
+    "locations": [
+      {
+        "path": "/lib/apk/db/installed",
+        "layerID": "sha256:995d6b9e4449cbc44a2602231d0af9a06b9ecc0a5f7818f651ef6fb2ea4930ad"
+      }
+    ],
+    "language": "",
+    "licenses": [
+      "Apache-2.0"
+    ],
+    "cpes": [
+      "cpe:2.3:a:libcrypto3:libcrypto3:3.1.3-r0:*:*:*:*:*:*:*",
+      "cpe:2.3:a:libcrypto3:libcrypto:3.1.3-r0:*:*:*:*:*:*:*",
+      "cpe:2.3:a:libcrypto:libcrypto3:3.1.3-r0:*:*:*:*:*:*:*",
+      "cpe:2.3:a:libcrypto:libcrypto:3.1.3-r0:*:*:*:*:*:*:*"
+    ],
+    "purl": "pkg:apk/wolfi/libcrypto3@3.1.3-r0?arch=x86_64&upstream=openssl&distro=wolfi-20230201",
+    "upstreams": [
+      {
+        "name": "openssl"
+      }
+    ]
+  },
+  "image": "public.ecr.aws/initializ/aws-cli",
+  "message": "Vulnerability found."
+},
+{
+  "_id": {
+    "$oid": "6579a0c8b7b38e0555d368a7"
+  },
+  "vulnerability": {
+    "id": "CVE-2023-5678",
+    "dataSource": "http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2023-5678",
+    "namespace": "wolfi:distro:wolfi:rolling",
+    "severity": "Medium",
+    "urls": [
+      "http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2023-5678"
+    ],
+    "cvss": [],
+    "fix": {
+      "versions": [
+        "3.1.4-r1"
+      ],
+      "state": "fixed"
+    },
+    "advisories": []
+  },
+  "relatedVulnerabilities": [
+    {
+      "id": "CVE-2023-5678",
+      "dataSource": "https://nvd.nist.gov/vuln/detail/CVE-2023-5678",
+      "namespace": "nvd:cpe",
+      "severity": "Medium",
+      "urls": [
+        "https://git.openssl.org/gitweb/?p=openssl.git;a=commitdiff;h=34efaef6c103d636ab507a0cc34dca4d3aecc055",
+        "https://git.openssl.org/gitweb/?p=openssl.git;a=commitdiff;h=710fee740904b6290fef0dd5536fbcedbc38ff0c",
+        "https://git.openssl.org/gitweb/?p=openssl.git;a=commitdiff;h=db925ae2e65d0d925adef429afc37f75bd1c2017",
+        "https://git.openssl.org/gitweb/?p=openssl.git;a=commitdiff;h=ddeb4b6c6d527e54ce9a99cba785c0f7776e54b6",
+        "https://security.netapp.com/advisory/ntap-20231130-0010/",
+        "https://www.openssl.org/news/secadv/20231106.txt"
+      ],
+      "description": "Issue summary: Generating excessively long X9.42 DH keys or checking\nexcessively long X9.42 DH keys or parameters may be very slow.\n\nImpact summary: Applications that use the functions DH_generate_key() to\ngenerate an X9.42 DH key may experience long delays.  Likewise, applications\nthat use DH_check_pub_key(), DH_check_pub_key_ex() or EVP_PKEY_public_check()\nto check an X9.42 DH key or X9.42 DH parameters may experience long delays.\nWhere the key or parameters that are being checked have been obtained from\nan untrusted source this may lead to a Denial of Service.\n\nWhile DH_check() performs all the necessary checks (as of CVE-2023-3817),\nDH_check_pub_key() doesn't make any of these checks, and is therefore\nvulnerable for excessively large P and Q parameters.\n\nLikewise, while DH_generate_key() performs a check for an excessively large\nP, it doesn't check for an excessively large Q.\n\nAn application that calls DH_generate_key() or DH_check_pub_key() and\nsupplies a key or parameters obtained from an untrusted source could be\nvulnerable to a Denial of Service attack.\n\nDH_generate_key() and DH_check_pub_key() are also called by a number of\nother OpenSSL functions.  An application calling any of those other\nfunctions may similarly be affected.  The other functions affected by this\nare DH_check_pub_key_ex(), EVP_PKEY_public_check(), and EVP_PKEY_generate().\n\nAlso vulnerable are the OpenSSL pkey command line application when using the\n\"-pubcheck\" option, as well as the OpenSSL genpkey command line application.\n\nThe OpenSSL SSL/TLS implementation is not affected by this issue.\n\nThe OpenSSL 3.0 and 3.1 FIPS providers are not affected by this issue.\n\n",
+      "cvss": [
+        {
+          "source": "nvd@nist.gov",
+          "type": "Primary",
+          "version": "3.1",
+          "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L",
+          "metrics": {
+            "baseScore": 5.3,
+            "exploitabilityScore": 3.9,
+            "impactScore": 1.4
+          },
+          "vendorMetadata": {}
+        }
+      ]
+    }
+  ],
+  "matchDetails": [
+    {
+      "type": "exact-indirect-match",
+      "matcher": "apk-matcher",
+      "searchedBy": {
+        "distro": {
+          "type": "wolfi",
+          "version": "20230201"
+        },
+        "namespace": "wolfi:distro:wolfi:rolling",
+        "package": {
+          "name": "openssl",
+          "version": "3.1.3-r0"
+        }
+      },
+      "found": {
+        "versionConstraint": "< 3.1.4-r1 (apk)",
+        "vulnerabilityID": "CVE-2023-5678"
+      }
+    }
+  ],
+  "artifact": {
+    "id": "88fec4ad2bcb178c",
+    "name": "libcrypto3",
+    "version": "3.1.3-r0",
+    "type": "apk",
+    "locations": [
+      {
+        "path": "/lib/apk/db/installed",
+        "layerID": "sha256:995d6b9e4449cbc44a2602231d0af9a06b9ecc0a5f7818f651ef6fb2ea4930ad"
+      }
+    ],
+    "language": "",
+    "licenses": [
+      "Apache-2.0"
+    ],
+    "cpes": [
+      "cpe:2.3:a:libcrypto3:libcrypto3:3.1.3-r0:*:*:*:*:*:*:*",
+      "cpe:2.3:a:libcrypto3:libcrypto:3.1.3-r0:*:*:*:*:*:*:*",
+      "cpe:2.3:a:libcrypto:libcrypto3:3.1.3-r0:*:*:*:*:*:*:*",
+      "cpe:2.3:a:libcrypto:libcrypto:3.1.3-r0:*:*:*:*:*:*:*"
+    ],
+    "purl": "pkg:apk/wolfi/libcrypto3@3.1.3-r0?arch=x86_64&upstream=openssl&distro=wolfi-20230201",
+    "upstreams": [
+      {
+        "name": "openssl"
+      }
+    ]
+  },
+  "image": "public.ecr.aws/initializ/aws-cli",
+  "message": "Vulnerability found."
+},
+{
+  "_id": {
+    "$oid": "6579a0c8b7b38e0555d368a8"
+  },
+  "vulnerability": {
+    "id": "GHSA-xw78-pcr6-wrg8",
+    "dataSource": "http://cve.mitre.org/cgi-bin/cvename.cgi?name=GHSA-xw78-pcr6-wrg8",
+    "namespace": "wolfi:distro:wolfi:rolling",
+    "severity": "Unknown",
+    "urls": [
+      "http://cve.mitre.org/cgi-bin/cvename.cgi?name=GHSA-xw78-pcr6-wrg8"
+    ],
+    "cvss": [],
+    "fix": {
+      "versions": [
+        "3.1.4-r0"
+      ],
+      "state": "fixed"
+    },
+    "advisories": []
+  },
+  "relatedVulnerabilities": [],
+  "matchDetails": [
+    {
+      "type": "exact-indirect-match",
+      "matcher": "apk-matcher",
+      "searchedBy": {
+        "distro": {
+          "type": "wolfi",
+          "version": "20230201"
+        },
+        "namespace": "wolfi:distro:wolfi:rolling",
+        "package": {
+          "name": "openssl",
+          "version": "3.1.3-r0"
+        }
+      },
+      "found": {
+        "versionConstraint": "< 3.1.4-r0 (apk)",
+        "vulnerabilityID": "GHSA-xw78-pcr6-wrg8"
+      }
+    }
+  ],
+  "artifact": {
+    "id": "88fec4ad2bcb178c",
+    "name": "libcrypto3",
+    "version": "3.1.3-r0",
+    "type": "apk",
+    "locations": [
+      {
+        "path": "/lib/apk/db/installed",
+        "layerID": "sha256:995d6b9e4449cbc44a2602231d0af9a06b9ecc0a5f7818f651ef6fb2ea4930ad"
+      }
+    ],
+    "language": "",
+    "licenses": [
+      "Apache-2.0"
+    ],
+    "cpes": [
+      "cpe:2.3:a:libcrypto3:libcrypto3:3.1.3-r0:*:*:*:*:*:*:*",
+      "cpe:2.3:a:libcrypto3:libcrypto:3.1.3-r0:*:*:*:*:*:*:*",
+      "cpe:2.3:a:libcrypto:libcrypto3:3.1.3-r0:*:*:*:*:*:*:*",
+      "cpe:2.3:a:libcrypto:libcrypto:3.1.3-r0:*:*:*:*:*:*:*"
+    ],
+    "purl": "pkg:apk/wolfi/libcrypto3@3.1.3-r0?arch=x86_64&upstream=openssl&distro=wolfi-20230201",
+    "upstreams": [
+      {
+        "name": "openssl"
+      }
+    ]
+  },
+  "image": "public.ecr.aws/initializ/aws-cli",
+  "message": "Vulnerability found."
+},
+{
+  "_id": {
+    "$oid": "6579a0c8b7b38e0555d368a9"
+  },
+  "vulnerability": {
+    "id": "GHSA-2cj7-mg3x-9mhq",
+    "dataSource": "http://cve.mitre.org/cgi-bin/cvename.cgi?name=GHSA-2cj7-mg3x-9mhq",
+    "namespace": "wolfi:distro:wolfi:rolling",
+    "severity": "Unknown",
+    "urls": [
+      "http://cve.mitre.org/cgi-bin/cvename.cgi?name=GHSA-2cj7-mg3x-9mhq"
+    ],
+    "cvss": [],
+    "fix": {
+      "versions": [
+        "3.1.4-r1"
+      ],
+      "state": "fixed"
+    },
+    "advisories": []
+  },
+  "relatedVulnerabilities": [],
+  "matchDetails": [
+    {
+      "type": "exact-indirect-match",
+      "matcher": "apk-matcher",
+      "searchedBy": {
+        "distro": {
+          "type": "wolfi",
+          "version": "20230201"
+        },
+        "namespace": "wolfi:distro:wolfi:rolling",
+        "package": {
+          "name": "openssl",
+          "version": "3.1.3-r0"
+        }
+      },
+      "found": {
+        "versionConstraint": "< 3.1.4-r1 (apk)",
+        "vulnerabilityID": "GHSA-2cj7-mg3x-9mhq"
+      }
+    }
+  ],
+  "artifact": {
+    "id": "88fec4ad2bcb178c",
+    "name": "libcrypto3",
+    "version": "3.1.3-r0",
+    "type": "apk",
+    "locations": [
+      {
+        "path": "/lib/apk/db/installed",
+        "layerID": "sha256:995d6b9e4449cbc44a2602231d0af9a06b9ecc0a5f7818f651ef6fb2ea4930ad"
+      }
+    ],
+    "language": "",
+    "licenses": [
+      "Apache-2.0"
+    ],
+    "cpes": [
+      "cpe:2.3:a:libcrypto3:libcrypto3:3.1.3-r0:*:*:*:*:*:*:*",
+      "cpe:2.3:a:libcrypto3:libcrypto:3.1.3-r0:*:*:*:*:*:*:*",
+      "cpe:2.3:a:libcrypto:libcrypto3:3.1.3-r0:*:*:*:*:*:*:*",
+      "cpe:2.3:a:libcrypto:libcrypto:3.1.3-r0:*:*:*:*:*:*:*"
+    ],
+    "purl": "pkg:apk/wolfi/libcrypto3@3.1.3-r0?arch=x86_64&upstream=openssl&distro=wolfi-20230201",
+    "upstreams": [
+      {
+        "name": "openssl"
+      }
+    ]
+  },
+  "image": "public.ecr.aws/initializ/aws-cli",
+  "message": "Vulnerability found."
+},
+{
+  "_id": {
+    "$oid": "6579a0c8b7b38e0555d368aa"
+  },
+  "vulnerability": {
+    "id": "CVE-2023-5363",
+    "dataSource": "http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2023-5363",
+    "namespace": "wolfi:distro:wolfi:rolling",
+    "severity": "High",
+    "urls": [
+      "http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2023-5363"
+    ],
+    "cvss": [],
+    "fix": {
+      "versions": [
+        "3.1.4-r0"
+      ],
+      "state": "fixed"
+    },
+    "advisories": []
+  },
+  "relatedVulnerabilities": [
+    {
+      "id": "CVE-2023-5363",
+      "dataSource": "https://nvd.nist.gov/vuln/detail/CVE-2023-5363",
+      "namespace": "nvd:cpe",
+      "severity": "High",
+      "urls": [
+        "http://www.openwall.com/lists/oss-security/2023/10/24/1",
+        "https://git.openssl.org/gitweb/?p=openssl.git;a=commitdiff;h=0df40630850fb2740e6be6890bb905d3fc623b2d",
+        "https://git.openssl.org/gitweb/?p=openssl.git;a=commitdiff;h=5f69f5c65e483928c4b28ed16af6e5742929f1ee",
+        "https://security.netapp.com/advisory/ntap-20231027-0010/",
+        "https://www.debian.org/security/2023/dsa-5532",
+        "https://www.openssl.org/news/secadv/20231024.txt"
+      ],
+      "description": "Issue summary: A bug has been identified in the processing of key and\ninitialisation vector (IV) lengths.  This can lead to potential truncation\nor overruns during the initialisation of some symmetric ciphers.\n\nImpact summary: A truncation in the IV can result in non-uniqueness,\nwhich could result in loss of confidentiality for some cipher modes.\n\nWhen calling EVP_EncryptInit_ex2(), EVP_DecryptInit_ex2() or\nEVP_CipherInit_ex2() the provided OSSL_PARAM array is processed after\nthe key and IV have been established.  Any alterations to the key length,\nvia the \"keylen\" parameter or the IV length, via the \"ivlen\" parameter,\nwithin the OSSL_PARAM array will not take effect as intended, potentially\ncausing truncation or overreading of these values.  The following ciphers\nand cipher modes are impacted: RC2, RC4, RC5, CCM, GCM and OCB.\n\nFor the CCM, GCM and OCB cipher modes, truncation of the IV can result in\nloss of confidentiality.  For example, when following NIST's SP 800-38D\nsection 8.2.1 guidance for constructing a deterministic IV for AES in\nGCM mode, truncation of the counter portion could lead to IV reuse.\n\nBoth truncations and overruns of the key and overruns of the IV will\nproduce incorrect results and could, in some cases, trigger a memory\nexception.  However, these issues are not currently assessed as security\ncritical.\n\nChanging the key and/or IV lengths is not considered to be a common operation\nand the vulnerable API was recently introduced. Furthermore it is likely that\napplication developers will have spotted this problem during testing since\ndecryption would fail unless both peers in the communication were similarly\nvulnerable. For these reasons we expect the probability of an application being\nvulnerable to this to be quite low. However if an application is vulnerable then\nthis issue is considered very serious. For these reasons we have assessed this\nissue as Moderate severity overall.\n\nThe OpenSSL SSL/TLS implementation is not affected by this issue.\n\nThe OpenSSL 3.0 and 3.1 FIPS providers are not affected by this because\nthe issue lies outside of the FIPS provider boundary.\n\nOpenSSL 3.1 and 3.0 are vulnerable to this issue.",
+      "cvss": [
+        {
+          "source": "nvd@nist.gov",
+          "type": "Primary",
+          "version": "3.1",
+          "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N",
+          "metrics": {
+            "baseScore": 7.5,
+            "exploitabilityScore": 3.9,
+            "impactScore": 3.6
+          },
+          "vendorMetadata": {}
+        }
+      ]
+    }
+  ],
+  "matchDetails": [
+    {
+      "type": "exact-indirect-match",
+      "matcher": "apk-matcher",
+      "searchedBy": {
+        "distro": {
+          "type": "wolfi",
+          "version": "20230201"
+        },
+        "namespace": "wolfi:distro:wolfi:rolling",
+        "package": {
+          "name": "openssl",
+          "version": "3.1.3-r0"
+        }
+      },
+      "found": {
+        "versionConstraint": "< 3.1.4-r0 (apk)",
+        "vulnerabilityID": "CVE-2023-5363"
+      }
+    }
+  ],
+  "artifact": {
+    "id": "64fe33242fb08e2f",
+    "name": "libssl3",
+    "version": "3.1.3-r0",
+    "type": "apk",
+    "locations": [
+      {
+        "path": "/lib/apk/db/installed",
+        "layerID": "sha256:995d6b9e4449cbc44a2602231d0af9a06b9ecc0a5f7818f651ef6fb2ea4930ad"
+      }
+    ],
+    "language": "",
+    "licenses": [
+      "Apache-2.0"
+    ],
+    "cpes": [
+      "cpe:2.3:a:libssl3:libssl3:3.1.3-r0:*:*:*:*:*:*:*",
+      "cpe:2.3:a:libssl3:libssl:3.1.3-r0:*:*:*:*:*:*:*",
+      "cpe:2.3:a:libssl:libssl3:3.1.3-r0:*:*:*:*:*:*:*",
+      "cpe:2.3:a:libssl:libssl:3.1.3-r0:*:*:*:*:*:*:*"
+    ],
+    "purl": "pkg:apk/wolfi/libssl3@3.1.3-r0?arch=x86_64&upstream=openssl&distro=wolfi-20230201",
+    "upstreams": [
+      {
+        "name": "openssl"
+      }
+    ]
+  },
+  "image": "public.ecr.aws/initializ/aws-cli",
+  "message": "Vulnerability found."
+},
+{
+  "_id": {
+    "$oid": "6579a0c8b7b38e0555d368ab"
+  },
+  "vulnerability": {
+    "id": "CVE-2023-5678",
+    "dataSource": "http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2023-5678",
+    "namespace": "wolfi:distro:wolfi:rolling",
+    "severity": "Medium",
+    "urls": [
+      "http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2023-5678"
+    ],
+    "cvss": [],
+    "fix": {
+      "versions": [
+        "3.1.4-r1"
+      ],
+      "state": "fixed"
+    },
+    "advisories": []
+  },
+  "relatedVulnerabilities": [
+    {
+      "id": "CVE-2023-5678",
+      "dataSource": "https://nvd.nist.gov/vuln/detail/CVE-2023-5678",
+      "namespace": "nvd:cpe",
+      "severity": "Medium",
+      "urls": [
+        "https://git.openssl.org/gitweb/?p=openssl.git;a=commitdiff;h=34efaef6c103d636ab507a0cc34dca4d3aecc055",
+        "https://git.openssl.org/gitweb/?p=openssl.git;a=commitdiff;h=710fee740904b6290fef0dd5536fbcedbc38ff0c",
+        "https://git.openssl.org/gitweb/?p=openssl.git;a=commitdiff;h=db925ae2e65d0d925adef429afc37f75bd1c2017",
+        "https://git.openssl.org/gitweb/?p=openssl.git;a=commitdiff;h=ddeb4b6c6d527e54ce9a99cba785c0f7776e54b6",
+        "https://security.netapp.com/advisory/ntap-20231130-0010/",
+        "https://www.openssl.org/news/secadv/20231106.txt"
+      ],
+      "description": "Issue summary: Generating excessively long X9.42 DH keys or checking\nexcessively long X9.42 DH keys or parameters may be very slow.\n\nImpact summary: Applications that use the functions DH_generate_key() to\ngenerate an X9.42 DH key may experience long delays.  Likewise, applications\nthat use DH_check_pub_key(), DH_check_pub_key_ex() or EVP_PKEY_public_check()\nto check an X9.42 DH key or X9.42 DH parameters may experience long delays.\nWhere the key or parameters that are being checked have been obtained from\nan untrusted source this may lead to a Denial of Service.\n\nWhile DH_check() performs all the necessary checks (as of CVE-2023-3817),\nDH_check_pub_key() doesn't make any of these checks, and is therefore\nvulnerable for excessively large P and Q parameters.\n\nLikewise, while DH_generate_key() performs a check for an excessively large\nP, it doesn't check for an excessively large Q.\n\nAn application that calls DH_generate_key() or DH_check_pub_key() and\nsupplies a key or parameters obtained from an untrusted source could be\nvulnerable to a Denial of Service attack.\n\nDH_generate_key() and DH_check_pub_key() are also called by a number of\nother OpenSSL functions.  An application calling any of those other\nfunctions may similarly be affected.  The other functions affected by this\nare DH_check_pub_key_ex(), EVP_PKEY_public_check(), and EVP_PKEY_generate().\n\nAlso vulnerable are the OpenSSL pkey command line application when using the\n\"-pubcheck\" option, as well as the OpenSSL genpkey command line application.\n\nThe OpenSSL SSL/TLS implementation is not affected by this issue.\n\nThe OpenSSL 3.0 and 3.1 FIPS providers are not affected by this issue.\n\n",
+      "cvss": [
+        {
+          "source": "nvd@nist.gov",
+          "type": "Primary",
+          "version": "3.1",
+          "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L",
+          "metrics": {
+            "baseScore": 5.3,
+            "exploitabilityScore": 3.9,
+            "impactScore": 1.4
+          },
+          "vendorMetadata": {}
+        }
+      ]
+    }
+  ],
+  "matchDetails": [
+    {
+      "type": "exact-indirect-match",
+      "matcher": "apk-matcher",
+      "searchedBy": {
+        "distro": {
+          "type": "wolfi",
+          "version": "20230201"
+        },
+        "namespace": "wolfi:distro:wolfi:rolling",
+        "package": {
+          "name": "openssl",
+          "version": "3.1.3-r0"
+        }
+      },
+      "found": {
+        "versionConstraint": "< 3.1.4-r1 (apk)",
+        "vulnerabilityID": "CVE-2023-5678"
+      }
+    }
+  ],
+  "artifact": {
+    "id": "64fe33242fb08e2f",
+    "name": "libssl3",
+    "version": "3.1.3-r0",
+    "type": "apk",
+    "locations": [
+      {
+        "path": "/lib/apk/db/installed",
+        "layerID": "sha256:995d6b9e4449cbc44a2602231d0af9a06b9ecc0a5f7818f651ef6fb2ea4930ad"
+      }
+    ],
+    "language": "",
+    "licenses": [
+      "Apache-2.0"
+    ],
+    "cpes": [
+      "cpe:2.3:a:libssl3:libssl3:3.1.3-r0:*:*:*:*:*:*:*",
+      "cpe:2.3:a:libssl3:libssl:3.1.3-r0:*:*:*:*:*:*:*",
+      "cpe:2.3:a:libssl:libssl3:3.1.3-r0:*:*:*:*:*:*:*",
+      "cpe:2.3:a:libssl:libssl:3.1.3-r0:*:*:*:*:*:*:*"
+    ],
+    "purl": "pkg:apk/wolfi/libssl3@3.1.3-r0?arch=x86_64&upstream=openssl&distro=wolfi-20230201",
+    "upstreams": [
+      {
+        "name": "openssl"
+      }
+    ]
+  },
+  "image": "public.ecr.aws/initializ/aws-cli",
+  "message": "Vulnerability found."
+},
+{
+  "_id": {
+    "$oid": "6579a0c8b7b38e0555d368ac"
+  },
+  "vulnerability": {
+    "id": "GHSA-xw78-pcr6-wrg8",
+    "dataSource": "http://cve.mitre.org/cgi-bin/cvename.cgi?name=GHSA-xw78-pcr6-wrg8",
+    "namespace": "wolfi:distro:wolfi:rolling",
+    "severity": "Unknown",
+    "urls": [
+      "http://cve.mitre.org/cgi-bin/cvename.cgi?name=GHSA-xw78-pcr6-wrg8"
+    ],
+    "cvss": [],
+    "fix": {
+      "versions": [
+        "3.1.4-r0"
+      ],
+      "state": "fixed"
+    },
+    "advisories": []
+  },
+  "relatedVulnerabilities": [],
+  "matchDetails": [
+    {
+      "type": "exact-indirect-match",
+      "matcher": "apk-matcher",
+      "searchedBy": {
+        "distro": {
+          "type": "wolfi",
+          "version": "20230201"
+        },
+        "namespace": "wolfi:distro:wolfi:rolling",
+        "package": {
+          "name": "openssl",
+          "version": "3.1.3-r0"
+        }
+      },
+      "found": {
+        "versionConstraint": "< 3.1.4-r0 (apk)",
+        "vulnerabilityID": "GHSA-xw78-pcr6-wrg8"
+      }
+    }
+  ],
+  "artifact": {
+    "id": "64fe33242fb08e2f",
+    "name": "libssl3",
+    "version": "3.1.3-r0",
+    "type": "apk",
+    "locations": [
+      {
+        "path": "/lib/apk/db/installed",
+        "layerID": "sha256:995d6b9e4449cbc44a2602231d0af9a06b9ecc0a5f7818f651ef6fb2ea4930ad"
+      }
+    ],
+    "language": "",
+    "licenses": [
+      "Apache-2.0"
+    ],
+    "cpes": [
+      "cpe:2.3:a:libssl3:libssl3:3.1.3-r0:*:*:*:*:*:*:*",
+      "cpe:2.3:a:libssl3:libssl:3.1.3-r0:*:*:*:*:*:*:*",
+      "cpe:2.3:a:libssl:libssl3:3.1.3-r0:*:*:*:*:*:*:*",
+      "cpe:2.3:a:libssl:libssl:3.1.3-r0:*:*:*:*:*:*:*"
+    ],
+    "purl": "pkg:apk/wolfi/libssl3@3.1.3-r0?arch=x86_64&upstream=openssl&distro=wolfi-20230201",
+    "upstreams": [
+      {
+        "name": "openssl"
+      }
+    ]
+  },
+  "image": "public.ecr.aws/initializ/aws-cli",
+  "message": "Vulnerability found."
+},
+{
+  "_id": {
+    "$oid": "6579a0c8b7b38e0555d368ad"
+  },
+  "vulnerability": {
+    "id": "GHSA-2cj7-mg3x-9mhq",
+    "dataSource": "http://cve.mitre.org/cgi-bin/cvename.cgi?name=GHSA-2cj7-mg3x-9mhq",
+    "namespace": "wolfi:distro:wolfi:rolling",
+    "severity": "Unknown",
+    "urls": [
+      "http://cve.mitre.org/cgi-bin/cvename.cgi?name=GHSA-2cj7-mg3x-9mhq"
+    ],
+    "cvss": [],
+    "fix": {
+      "versions": [
+        "3.1.4-r1"
+      ],
+      "state": "fixed"
+    },
+    "advisories": []
+  },
+  "relatedVulnerabilities": [],
+  "matchDetails": [
+    {
+      "type": "exact-indirect-match",
+      "matcher": "apk-matcher",
+      "searchedBy": {
+        "distro": {
+          "type": "wolfi",
+          "version": "20230201"
+        },
+        "namespace": "wolfi:distro:wolfi:rolling",
+        "package": {
+          "name": "openssl",
+          "version": "3.1.3-r0"
+        }
+      },
+      "found": {
+        "versionConstraint": "< 3.1.4-r1 (apk)",
+        "vulnerabilityID": "GHSA-2cj7-mg3x-9mhq"
+      }
+    }
+  ],
+  "artifact": {
+    "id": "64fe33242fb08e2f",
+    "name": "libssl3",
+    "version": "3.1.3-r0",
+    "type": "apk",
+    "locations": [
+      {
+        "path": "/lib/apk/db/installed",
+        "layerID": "sha256:995d6b9e4449cbc44a2602231d0af9a06b9ecc0a5f7818f651ef6fb2ea4930ad"
+      }
+    ],
+    "language": "",
+    "licenses": [
+      "Apache-2.0"
+    ],
+    "cpes": [
+      "cpe:2.3:a:libssl3:libssl3:3.1.3-r0:*:*:*:*:*:*:*",
+      "cpe:2.3:a:libssl3:libssl:3.1.3-r0:*:*:*:*:*:*:*",
+      "cpe:2.3:a:libssl:libssl3:3.1.3-r0:*:*:*:*:*:*:*",
+      "cpe:2.3:a:libssl:libssl:3.1.3-r0:*:*:*:*:*:*:*"
+    ],
+    "purl": "pkg:apk/wolfi/libssl3@3.1.3-r0?arch=x86_64&upstream=openssl&distro=wolfi-20230201",
+    "upstreams": [
+      {
+        "name": "openssl"
+      }
+    ]
+  },
+  "image": "public.ecr.aws/initializ/aws-cli",
+  "message": "Vulnerability found."
+},
+{
+  "_id": {
+    "$oid": "6579a0c8b7b38e0555d368ae"
+  },
+  "vulnerability": {
+    "id": "CVE-2023-5363",
+    "dataSource": "http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2023-5363",
+    "namespace": "wolfi:distro:wolfi:rolling",
+    "severity": "High",
+    "urls": [
+      "http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2023-5363"
+    ],
+    "cvss": [],
+    "fix": {
+      "versions": [
+        "3.1.4-r0"
+      ],
+      "state": "fixed"
+    },
+    "advisories": []
+  },
+  "relatedVulnerabilities": [
+    {
+      "id": "CVE-2023-5363",
+      "dataSource": "https://nvd.nist.gov/vuln/detail/CVE-2023-5363",
+      "namespace": "nvd:cpe",
+      "severity": "High",
+      "urls": [
+        "http://www.openwall.com/lists/oss-security/2023/10/24/1",
+        "https://git.openssl.org/gitweb/?p=openssl.git;a=commitdiff;h=0df40630850fb2740e6be6890bb905d3fc623b2d",
+        "https://git.openssl.org/gitweb/?p=openssl.git;a=commitdiff;h=5f69f5c65e483928c4b28ed16af6e5742929f1ee",
+        "https://security.netapp.com/advisory/ntap-20231027-0010/",
+        "https://www.debian.org/security/2023/dsa-5532",
+        "https://www.openssl.org/news/secadv/20231024.txt"
+      ],
+      "description": "Issue summary: A bug has been identified in the processing of key and\ninitialisation vector (IV) lengths.  This can lead to potential truncation\nor overruns during the initialisation of some symmetric ciphers.\n\nImpact summary: A truncation in the IV can result in non-uniqueness,\nwhich could result in loss of confidentiality for some cipher modes.\n\nWhen calling EVP_EncryptInit_ex2(), EVP_DecryptInit_ex2() or\nEVP_CipherInit_ex2() the provided OSSL_PARAM array is processed after\nthe key and IV have been established.  Any alterations to the key length,\nvia the \"keylen\" parameter or the IV length, via the \"ivlen\" parameter,\nwithin the OSSL_PARAM array will not take effect as intended, potentially\ncausing truncation or overreading of these values.  The following ciphers\nand cipher modes are impacted: RC2, RC4, RC5, CCM, GCM and OCB.\n\nFor the CCM, GCM and OCB cipher modes, truncation of the IV can result in\nloss of confidentiality.  For example, when following NIST's SP 800-38D\nsection 8.2.1 guidance for constructing a deterministic IV for AES in\nGCM mode, truncation of the counter portion could lead to IV reuse.\n\nBoth truncations and overruns of the key and overruns of the IV will\nproduce incorrect results and could, in some cases, trigger a memory\nexception.  However, these issues are not currently assessed as security\ncritical.\n\nChanging the key and/or IV lengths is not considered to be a common operation\nand the vulnerable API was recently introduced. Furthermore it is likely that\napplication developers will have spotted this problem during testing since\ndecryption would fail unless both peers in the communication were similarly\nvulnerable. For these reasons we expect the probability of an application being\nvulnerable to this to be quite low. However if an application is vulnerable then\nthis issue is considered very serious. For these reasons we have assessed this\nissue as Moderate severity overall.\n\nThe OpenSSL SSL/TLS implementation is not affected by this issue.\n\nThe OpenSSL 3.0 and 3.1 FIPS providers are not affected by this because\nthe issue lies outside of the FIPS provider boundary.\n\nOpenSSL 3.1 and 3.0 are vulnerable to this issue.",
+      "cvss": [
+        {
+          "source": "nvd@nist.gov",
+          "type": "Primary",
+          "version": "3.1",
+          "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N",
+          "metrics": {
+            "baseScore": 7.5,
+            "exploitabilityScore": 3.9,
+            "impactScore": 3.6
+          },
+          "vendorMetadata": {}
+        }
+      ]
+    }
+  ],
+  "matchDetails": [
+    {
+      "type": "exact-indirect-match",
+      "matcher": "apk-matcher",
+      "searchedBy": {
+        "distro": {
+          "type": "wolfi",
+          "version": "20230201"
+        },
+        "namespace": "wolfi:distro:wolfi:rolling",
+        "package": {
+          "name": "openssl",
+          "version": "3.1.3-r0"
+        }
+      },
+      "found": {
+        "versionConstraint": "< 3.1.4-r0 (apk)",
+        "vulnerabilityID": "CVE-2023-5363"
+      }
+    }
+  ],
+  "artifact": {
+    "id": "cd58af917dd6f130",
+    "name": "openssl-config",
+    "version": "3.1.3-r0",
+    "type": "apk",
+    "locations": [
+      {
+        "path": "/lib/apk/db/installed",
+        "layerID": "sha256:995d6b9e4449cbc44a2602231d0af9a06b9ecc0a5f7818f651ef6fb2ea4930ad"
+      }
+    ],
+    "language": "",
+    "licenses": [
+      "Apache-2.0"
+    ],
+    "cpes": [
+      "cpe:2.3:a:openssl-config:openssl-config:3.1.3-r0:*:*:*:*:*:*:*",
+      "cpe:2.3:a:openssl-config:openssl_config:3.1.3-r0:*:*:*:*:*:*:*",
+      "cpe:2.3:a:openssl_config:openssl-config:3.1.3-r0:*:*:*:*:*:*:*",
+      "cpe:2.3:a:openssl_config:openssl_config:3.1.3-r0:*:*:*:*:*:*:*",
+      "cpe:2.3:a:openssl:openssl-config:3.1.3-r0:*:*:*:*:*:*:*",
+      "cpe:2.3:a:openssl:openssl_config:3.1.3-r0:*:*:*:*:*:*:*"
+    ],
+    "purl": "pkg:apk/wolfi/openssl-config@3.1.3-r0?arch=x86_64&upstream=openssl&distro=wolfi-20230201",
+    "upstreams": [
+      {
+        "name": "openssl"
+      }
+    ]
+  },
+  "image": "public.ecr.aws/initializ/aws-cli",
+  "message": "Vulnerability found."
+},
+{
+  "_id": {
+    "$oid": "6579a0c8b7b38e0555d368af"
+  },
+  "vulnerability": {
+    "id": "CVE-2023-5678",
+    "dataSource": "http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2023-5678",
+    "namespace": "wolfi:distro:wolfi:rolling",
+    "severity": "Medium",
+    "urls": [
+      "http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2023-5678"
+    ],
+    "cvss": [],
+    "fix": {
+      "versions": [
+        "3.1.4-r1"
+      ],
+      "state": "fixed"
+    },
+    "advisories": []
+  },
+  "relatedVulnerabilities": [
+    {
+      "id": "CVE-2023-5678",
+      "dataSource": "https://nvd.nist.gov/vuln/detail/CVE-2023-5678",
+      "namespace": "nvd:cpe",
+      "severity": "Medium",
+      "urls": [
+        "https://git.openssl.org/gitweb/?p=openssl.git;a=commitdiff;h=34efaef6c103d636ab507a0cc34dca4d3aecc055",
+        "https://git.openssl.org/gitweb/?p=openssl.git;a=commitdiff;h=710fee740904b6290fef0dd5536fbcedbc38ff0c",
+        "https://git.openssl.org/gitweb/?p=openssl.git;a=commitdiff;h=db925ae2e65d0d925adef429afc37f75bd1c2017",
+        "https://git.openssl.org/gitweb/?p=openssl.git;a=commitdiff;h=ddeb4b6c6d527e54ce9a99cba785c0f7776e54b6",
+        "https://security.netapp.com/advisory/ntap-20231130-0010/",
+        "https://www.openssl.org/news/secadv/20231106.txt"
+      ],
+      "description": "Issue summary: Generating excessively long X9.42 DH keys or checking\nexcessively long X9.42 DH keys or parameters may be very slow.\n\nImpact summary: Applications that use the functions DH_generate_key() to\ngenerate an X9.42 DH key may experience long delays.  Likewise, applications\nthat use DH_check_pub_key(), DH_check_pub_key_ex() or EVP_PKEY_public_check()\nto check an X9.42 DH key or X9.42 DH parameters may experience long delays.\nWhere the key or parameters that are being checked have been obtained from\nan untrusted source this may lead to a Denial of Service.\n\nWhile DH_check() performs all the necessary checks (as of CVE-2023-3817),\nDH_check_pub_key() doesn't make any of these checks, and is therefore\nvulnerable for excessively large P and Q parameters.\n\nLikewise, while DH_generate_key() performs a check for an excessively large\nP, it doesn't check for an excessively large Q.\n\nAn application that calls DH_generate_key() or DH_check_pub_key() and\nsupplies a key or parameters obtained from an untrusted source could be\nvulnerable to a Denial of Service attack.\n\nDH_generate_key() and DH_check_pub_key() are also called by a number of\nother OpenSSL functions.  An application calling any of those other\nfunctions may similarly be affected.  The other functions affected by this\nare DH_check_pub_key_ex(), EVP_PKEY_public_check(), and EVP_PKEY_generate().\n\nAlso vulnerable are the OpenSSL pkey command line application when using the\n\"-pubcheck\" option, as well as the OpenSSL genpkey command line application.\n\nThe OpenSSL SSL/TLS implementation is not affected by this issue.\n\nThe OpenSSL 3.0 and 3.1 FIPS providers are not affected by this issue.\n\n",
+      "cvss": [
+        {
+          "source": "nvd@nist.gov",
+          "type": "Primary",
+          "version": "3.1",
+          "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L",
+          "metrics": {
+            "baseScore": 5.3,
+            "exploitabilityScore": 3.9,
+            "impactScore": 1.4
+          },
+          "vendorMetadata": {}
+        }
+      ]
+    }
+  ],
+  "matchDetails": [
+    {
+      "type": "exact-indirect-match",
+      "matcher": "apk-matcher",
+      "searchedBy": {
+        "distro": {
+          "type": "wolfi",
+          "version": "20230201"
+        },
+        "namespace": "wolfi:distro:wolfi:rolling",
+        "package": {
+          "name": "openssl",
+          "version": "3.1.3-r0"
+        }
+      },
+      "found": {
+        "versionConstraint": "< 3.1.4-r1 (apk)",
+        "vulnerabilityID": "CVE-2023-5678"
+      }
+    }
+  ],
+  "artifact": {
+    "id": "cd58af917dd6f130",
+    "name": "openssl-config",
+    "version": "3.1.3-r0",
+    "type": "apk",
+    "locations": [
+      {
+        "path": "/lib/apk/db/installed",
+        "layerID": "sha256:995d6b9e4449cbc44a2602231d0af9a06b9ecc0a5f7818f651ef6fb2ea4930ad"
+      }
+    ],
+    "language": "",
+    "licenses": [
+      "Apache-2.0"
+    ],
+    "cpes": [
+      "cpe:2.3:a:openssl-config:openssl-config:3.1.3-r0:*:*:*:*:*:*:*",
+      "cpe:2.3:a:openssl-config:openssl_config:3.1.3-r0:*:*:*:*:*:*:*",
+      "cpe:2.3:a:openssl_config:openssl-config:3.1.3-r0:*:*:*:*:*:*:*",
+      "cpe:2.3:a:openssl_config:openssl_config:3.1.3-r0:*:*:*:*:*:*:*",
+      "cpe:2.3:a:openssl:openssl-config:3.1.3-r0:*:*:*:*:*:*:*",
+      "cpe:2.3:a:openssl:openssl_config:3.1.3-r0:*:*:*:*:*:*:*"
+    ],
+    "purl": "pkg:apk/wolfi/openssl-config@3.1.3-r0?arch=x86_64&upstream=openssl&distro=wolfi-20230201",
+    "upstreams": [
+      {
+        "name": "openssl"
+      }
+    ]
+  },
+  "image": "public.ecr.aws/initializ/aws-cli",
+  "message": "Vulnerability found."
+},
+{
+  "_id": {
+    "$oid": "6579a0c8b7b38e0555d368b0"
+  },
+  "vulnerability": {
+    "id": "GHSA-xw78-pcr6-wrg8",
+    "dataSource": "http://cve.mitre.org/cgi-bin/cvename.cgi?name=GHSA-xw78-pcr6-wrg8",
+    "namespace": "wolfi:distro:wolfi:rolling",
+    "severity": "Unknown",
+    "urls": [
+      "http://cve.mitre.org/cgi-bin/cvename.cgi?name=GHSA-xw78-pcr6-wrg8"
+    ],
+    "cvss": [],
+    "fix": {
+      "versions": [
+        "3.1.4-r0"
+      ],
+      "state": "fixed"
+    },
+    "advisories": []
+  },
+  "relatedVulnerabilities": [],
+  "matchDetails": [
+    {
+      "type": "exact-indirect-match",
+      "matcher": "apk-matcher",
+      "searchedBy": {
+        "distro": {
+          "type": "wolfi",
+          "version": "20230201"
+        },
+        "namespace": "wolfi:distro:wolfi:rolling",
+        "package": {
+          "name": "openssl",
+          "version": "3.1.3-r0"
+        }
+      },
+      "found": {
+        "versionConstraint": "< 3.1.4-r0 (apk)",
+        "vulnerabilityID": "GHSA-xw78-pcr6-wrg8"
+      }
+    }
+  ],
+  "artifact": {
+    "id": "cd58af917dd6f130",
+    "name": "openssl-config",
+    "version": "3.1.3-r0",
+    "type": "apk",
+    "locations": [
+      {
+        "path": "/lib/apk/db/installed",
+        "layerID": "sha256:995d6b9e4449cbc44a2602231d0af9a06b9ecc0a5f7818f651ef6fb2ea4930ad"
+      }
+    ],
+    "language": "",
+    "licenses": [
+      "Apache-2.0"
+    ],
+    "cpes": [
+      "cpe:2.3:a:openssl-config:openssl-config:3.1.3-r0:*:*:*:*:*:*:*",
+      "cpe:2.3:a:openssl-config:openssl_config:3.1.3-r0:*:*:*:*:*:*:*",
+      "cpe:2.3:a:openssl_config:openssl-config:3.1.3-r0:*:*:*:*:*:*:*",
+      "cpe:2.3:a:openssl_config:openssl_config:3.1.3-r0:*:*:*:*:*:*:*",
+      "cpe:2.3:a:openssl:openssl-config:3.1.3-r0:*:*:*:*:*:*:*",
+      "cpe:2.3:a:openssl:openssl_config:3.1.3-r0:*:*:*:*:*:*:*"
+    ],
+    "purl": "pkg:apk/wolfi/openssl-config@3.1.3-r0?arch=x86_64&upstream=openssl&distro=wolfi-20230201",
+    "upstreams": [
+      {
+        "name": "openssl"
+      }
+    ]
+  },
+  "image": "public.ecr.aws/initializ/aws-cli",
+  "message": "Vulnerability found."
+},
+{
+  "_id": {
+    "$oid": "6579a0c8b7b38e0555d368b1"
+  },
+  "vulnerability": {
+    "id": "GHSA-2cj7-mg3x-9mhq",
+    "dataSource": "http://cve.mitre.org/cgi-bin/cvename.cgi?name=GHSA-2cj7-mg3x-9mhq",
+    "namespace": "wolfi:distro:wolfi:rolling",
+    "severity": "Unknown",
+    "urls": [
+      "http://cve.mitre.org/cgi-bin/cvename.cgi?name=GHSA-2cj7-mg3x-9mhq"
+    ],
+    "cvss": [],
+    "fix": {
+      "versions": [
+        "3.1.4-r1"
+      ],
+      "state": "fixed"
+    },
+    "advisories": []
+  },
+  "relatedVulnerabilities": [],
+  "matchDetails": [
+    {
+      "type": "exact-indirect-match",
+      "matcher": "apk-matcher",
+      "searchedBy": {
+        "distro": {
+          "type": "wolfi",
+          "version": "20230201"
+        },
+        "namespace": "wolfi:distro:wolfi:rolling",
+        "package": {
+          "name": "openssl",
+          "version": "3.1.3-r0"
+        }
+      },
+      "found": {
+        "versionConstraint": "< 3.1.4-r1 (apk)",
+        "vulnerabilityID": "GHSA-2cj7-mg3x-9mhq"
+      }
+    }
+  ],
+  "artifact": {
+    "id": "cd58af917dd6f130",
+    "name": "openssl-config",
+    "version": "3.1.3-r0",
+    "type": "apk",
+    "locations": [
+      {
+        "path": "/lib/apk/db/installed",
+        "layerID": "sha256:995d6b9e4449cbc44a2602231d0af9a06b9ecc0a5f7818f651ef6fb2ea4930ad"
+      }
+    ],
+    "language": "",
+    "licenses": [
+      "Apache-2.0"
+    ],
+    "cpes": [
+      "cpe:2.3:a:openssl-config:openssl-config:3.1.3-r0:*:*:*:*:*:*:*",
+      "cpe:2.3:a:openssl-config:openssl_config:3.1.3-r0:*:*:*:*:*:*:*",
+      "cpe:2.3:a:openssl_config:openssl-config:3.1.3-r0:*:*:*:*:*:*:*",
+      "cpe:2.3:a:openssl_config:openssl_config:3.1.3-r0:*:*:*:*:*:*:*",
+      "cpe:2.3:a:openssl:openssl-config:3.1.3-r0:*:*:*:*:*:*:*",
+      "cpe:2.3:a:openssl:openssl_config:3.1.3-r0:*:*:*:*:*:*:*"
+    ],
+    "purl": "pkg:apk/wolfi/openssl-config@3.1.3-r0?arch=x86_64&upstream=openssl&distro=wolfi-20230201",
+    "upstreams": [
+      {
+        "name": "openssl"
+      }
+    ]
+  },
+  "image": "public.ecr.aws/initializ/aws-cli",
+  "message": "Vulnerability found."
+}]
