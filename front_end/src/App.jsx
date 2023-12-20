@@ -61,14 +61,14 @@ const App = () => {
           <button
             key={language}
             onClick={() => handleLanguageClick(language)}
-            className={`m-2 px-4 py-2 uppercase text-blue-500 border border-blue-500 rounded-[5.5rem] cursor-pointer ${selectedLanguage === language ? ' bg-blue-950 text-white' : ''}`}
+            className={`m-2 px-4 py-2 uppercase font-[800] text-blue-500 border border-blue-500 rounded-[5.5rem] cursor-pointer ${selectedLanguage === language ? ' bg-blue-950 text-white' : ''}`}
           >
             {language}
           </button>
         ))}
       </div>
 
-      <div className="flex flex-wrap justify-center mt-[4rem] bg-[#fff] shadow-[0_8px_16px_rgba(52,67,244,.12)] rounded-md">
+      <div className="flex flex-wrap justify-center mt-[4rem] bg-[#fff] shadow-[0_8px_16px_rgba(52,67,244,.12)] rounded-md font-[700]">
         {selectedLanguage && (
           <div className="m-4 p-6 border rounded w-[100%] bg-[#fff]">
             <table className="table-auto bg-[#fff]">
