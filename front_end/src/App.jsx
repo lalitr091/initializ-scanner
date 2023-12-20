@@ -1,157 +1,98 @@
-import { useState, useEffect } from 'react'
-import './App.css'
-import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-function App() {
-  const [data, setData] = useState([]);
-  const [count, setCount] = useState(0)
+const App = () => {
+ const [data, setData] = useState([]);
+ const [filteredData, setFilteredData] = useState([]);
+ const [selectedLanguage, setSelectedLanguage] = useState(null);
+ const [cveCount, setCveCount] = useState(0);
 
-  useEffect(() => {
+ useEffect(() => {
     axios.get('http://localhost:8080/vulnerabilities')
       .then(response => {
         setData(response.data);
-        // console.log(response);
+        setFilteredData(response.data);
       })
       .catch(error => {
         console.error('Error fetching data:', error);
       });
-  }, []);
-console.log(data.length)
-let verdata=[]
+ }, []);
 
-for(let  i =0;i<data.length;i++)
-{
-  const imageUrl = data[i].Image;
-  const parts = imageUrl.split("/"); // Split the string by '/'
-  const imageName = parts[parts.length - 1];
-  
-  if(data[i].Message === "No vulnerabilities found.")
-  {
-    verdata.push({
-      "ID":data[i].Message,
-      "DataSource":data[i].Message,
-      "Namespace":data[i].Message,
-      "Severity":data[i].Message,
-      "Fix": data[i].Message,
-      "State":data[i].Message,
-      "Language":imageName,
-      "message":data[i].Message,
-      "Source":""
-    
-    
-    })
+ const handleLanguageClick = (language) => {
+    const lowercaseLanguage = language.toLowerCase();
+    const filteredByLanguage = data.filter(item => {
+      const lowercaseImageName = getImageName(item.Image).toLowerCase();
+      return lowercaseImageName.includes(lowercaseLanguage);
+    });
 
-  }
-  if(data[i].Message === "Vulnerability found.")
-  {
-    verdata.push({
-      "ID":data[i].Vulnerability.ID,
-      "DataSource":data[i].Vulnerability.DataSource,
-      "Namespace":data[i].Vulnerability.Namespace,
-      "Severity":data[i].Vulnerability.Severity,
-      "Fix": data[i].Vulnerability.Fix.Versions,
-      "State":data[i].Vulnerability.Fix.State,
-      "Language":imageName,
-      "message":data[i].Message,
-      "Source":""
-    
-    
-    })
+    // Count the number of CVEs for the selected language
+    const cveCountForLanguage = filteredByLanguage.filter(item => item.Message === 'Vulnerability found.').length;
+    setCveCount(cveCountForLanguage);
 
-  }
-    
-  
-  
-  
-//  console.log(data[i])
+    setFilteredData(filteredByLanguage);
+    setSelectedLanguage(language);
+ };
 
+ const getImageName = (imageUrl) => {
+    const parts = imageUrl.split("/");
+    return parts[parts.length - 1];
+ };
 
-  
-}
-  return (
-    
-    <>
-     <LocalizationProvider dateAdapter={AdapterDayjs}>
-      <DemoContainer components={['DatePicker']}>
-        <DatePicker label="Basic date picker" />
-      </DemoContainer>
-    </LocalizationProvider>
-    <div class="container mx-auto mt-8">
-  <table class="min-w-full bg-white border border-gray-300">
-    <thead>
-      <tr>
-        <th class="py-2 px-4 border-b">CVE id</th>
-        <th class="py-2 px-4 border-b">Language</th>
-        <th class="py-2 px-4 border-b">Data source</th>
-        {/* <th class="py-2 px-4 border-b">Source</th> */}
-        <th class="py-2 px-4 border-b">Namespace</th>
-        <th class="py-2 px-4 border-b">Severity</th>
-        <th class="py-2 px-4 border-b">Fixed version</th>
-        <th class="py-2 px-4 border-b">Fixed state</th>
-        <th class="py-2 px-4 border-b">Message</th>
-      </tr>
-    </thead>
-    <tbody>
-      {/* <!--  table rows here --> */}
-      {/* <tr>
-        <td class="py-2 px-4 border-b">CVE-2023-1234</td>
-        <td class="py-2 px-4 border-b">JavaScript</td>
-        <td class="py-2 px-4 border-b">Internal</td>
-        <td class="py-2 px-4 border-b">GitHub</td>
-        <td class="py-2 px-4 border-b">AppNamespace</td>
-        <td class="py-2 px-4 border-b">High</td>
-        <td class="py-2 px-4 border-b">Security vulnerability description goes here.</td>
-        <td class="py-2 px-4 border-b">v1.2.3</td>
-        <td class="py-2 px-4 border-b">Fixed</td>
-        <td class="py-2 px-4 border-b">Please update to the latest version.</td>
-      </tr> */}
-      {verdata.map(item => (
-              // <tr key={item.id}>
-              //   <td className="py-2 px-4 border-b">{item.CVEid}</td>
-              //   <td className="py-2 px-4 border-b">{item.Language}</td>
-              //   <td className="py-2 px-4 border-b">{item.DataSource}</td>
-              //   <td className="py-2 px-4 border-b">{item.Source}</td>
-              //   <td className="py-2 px-4 border-b">{item.Namespace}</td>
-              //   <td className="py-2 px-4 border-b">{item.Severity}</td>
-              //   <td className="py-2 px-4 border-b">{item.Description}</td>
-              //   <td className="py-2 px-4 border-b">{item.FixesVersion}</td>
-              //   <td className="py-2 px-4 border-b">{item.FixesState}</td>
-              //   <td className="py-2 px-4 border-b">{item.Message}</td>
-              // </tr>
-               <tr key={item.ID}>
-               <td className="py-2 px-4 border-b">{item.ID || 'N/A'}</td>
-               <td className="py-2 px-4 border-b">{item.Language || 'N/A'}</td>
-               <td className="py-2 px-4 border-b">{item.DataSource || 'N/A'}</td>
-                 {/* <td className="py-2 px-4 border-b">{item.Source || 'N/A'}</td> */}
-               <td className="py-2 px-4 border-b">{item.Namespace || 'N/A'}</td>
-               <td className="py-2 px-4 border-b">{item.Severity || 'N/A'}</td>
-                 <td className="py-2 px-4 border-b">{item.Fix|| 'N/A'}</td>
-                 <td className="py-2 px-4 border-b">{item.State|| 'N/A'}</td>
-                 <td className="py-2 px-4 border-b">{item.message|| 'N/A'}</td>
-              
-            
-               {/* Add more cells as needed based on your data structure */}
-             </tr>
-            ))}
-      
-      {/* <!-- rows as needed --> */}
-    </tbody>
-  </table>
-  <div class="flex justify-end mt-4">
-    <nav class="flex items-center">
-      <a href="#" class="py-2 px-4 bg-gray-300 mr-2 rounded">1</a>
-      <a href="#" class="py-2 px-4 hover:bg-gray-300 mr-2 rounded">2</a>
-      {/* <!-- Add more pages as needed --> */}
-    </nav>
-  </div>
-</div>
+ const languageSizes = {
+    'aws-cli': '43.74 (MB)',
+    'dotnet': '20.48 (MB)',
+    'node': '46.49 (MB)',
+    'go': '209.77 (MB)',
+    'java': '89.10 (MB)',
+    'python': '20.96 (MB)',
+    'typescript': '52.37 (MB)',
+    'kubectl': '16.53 (MB)',
+    'ruby': '17.45 (MB)',
+    'php': '9.57 (MB)',
+    'wolfi-base': '5.82 (MB)',
+ };
 
-    </>
-  )
-}
+ const uniqueLanguages = [...new Set(data.map(item => getImageName(item.Image)))];
 
-export default App
+ return (
+    <div className="flex flex-col items-center p-8 font-['Inter', sans-serif]">
+      <div className="flex flex-wrap justify-center">
+        {uniqueLanguages.map(language => (
+          <button
+            key={language}
+            onClick={() => handleLanguageClick(language)}
+            className={`m-2 px-4 py-2  uppercase text-blue-500 border border-blue-500 rounded-[5.5rem] cursor-pointer ${selectedLanguage === language ? ' bg-blue-950 text-white' : ''}`}
+          >
+            {language}
+          </button>
+        ))}
+      </div>
+
+      <div className="flex flex-wrap justify-center mt-[4rem] bg-[#fff]  shadow-[0_8px_16px_rgba(52,67,244,.12)] rounded-md">
+        {selectedLanguage && (
+          <div className="m-4 p-6 border rounded w-[100%] bg-[#fff]  ">
+          <table className="table-auto bg-[#fff]">
+            <thead>
+              <tr>
+                <th className="px-4 py-2 ">CVEs</th>
+                <th className="px-4 py-2">Size</th>
+                <th className="px-4 py-2">Age</th>
+              </tr>
+            </thead>
+            <tbody>
+
+                <tr >
+                 <td className="border px-4 py-2">{cveCount}</td>
+                 <td className="border px-4 py-2">{languageSizes[selectedLanguage] || 'N/A'}</td>
+                 <td className="border px-4 py-2">{new Date(Date.now() - 86400000 * 30).toDateString()}</td>
+                </tr>
+            </tbody>
+          </table>
+        </div>
+        )}
+      </div>
+    </div>
+ );
+};
+
+export default App;
