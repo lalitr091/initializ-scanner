@@ -33,13 +33,13 @@ for image_name in image_names:
         for match in matches:
             # Include the image name, epoch timestamp in the MongoDB document
             match["image"] = image_name
-            match["timestamp"] = int(datetime.now().timestamp())
+            match["timestamp"] = datetime.now().strftime("%d-%m-%Y %H:%M:%S")
             match["message"] = "Vulnerability found."
             collection.insert_one(match)
 
         if not matches:
             # Insert a message into MongoDB if no vulnerabilities found
-            collection.insert_one({"image": image_name, "timestamp": int(datetime.now().timestamp()), "message": "No vulnerabilities found."})
+            collection.insert_one({"image": image_name, "timestamp": datetime.now().strftime("%d-%m-%Y %H:%M:%S"), "message": "No vulnerabilities found."})
             print(f"No vulnerability matches found in Grype output for {image_name}. Message inserted into MongoDB.")
         else:
             print(f"Data inserted into MongoDB for {image_name} successfully, Vulnerability found")
