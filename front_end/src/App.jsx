@@ -1,17 +1,28 @@
+// ... (Previous imports and state definitions remain unchanged)
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-
 const App = () => {
   const [data, setData] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
-  const [selectedLanguage, setSelectedLanguage] = useState('go'); // Set "go" as the default language
+  const [selectedLanguage, setSelectedLanguage] = useState('go');
   const [cveCount, setCveCount] = useState(0);
+  const [ageInHours, setAgeInHours] = useState(0);
 
   useEffect(() => {
     axios.get('http://localhost:8080/vulnerabilities')
       .then(response => {
-        setData(response.data);
-        setFilteredData(response.data);
+        const updatedData = response.data.map(item => {
+          const [day, month, year, hours, minutes, seconds] = item.Timestamp.split(/[\s-:]+/);
+          const timestamp = new Date(year, month - 1, day, hours, minutes, seconds).getTime();
+          
+          return {
+            ...item,
+            Timestamp: timestamp,
+          };
+        });
+
+        setData(updatedData);
+        setFilteredData(updatedData);
       })
       .catch(error => {
         console.error('Error fetching data:', error);
@@ -25,9 +36,11 @@ const App = () => {
       return lowercaseImageName.includes(lowercaseLanguage);
     });
 
-    // Count the number of CVEs for the selected language
     const cveCountForLanguage = filteredByLanguage.filter(item => item.Message === 'Vulnerability found.').length;
     setCveCount(cveCountForLanguage);
+
+    const ageInHoursForLanguage = calculateAgeForLanguage(filteredByLanguage);
+    setAgeInHours(ageInHoursForLanguage);
 
     setFilteredData(filteredByLanguage);
     setSelectedLanguage(language);
@@ -36,6 +49,30 @@ const App = () => {
   const getImageName = (imageUrl) => {
     const parts = imageUrl.split("/");
     return parts[parts.length - 1];
+  };
+
+  const calculateAgeForLanguage = (filteredByLanguage) => {
+    const latestTimestamp = filteredByLanguage.reduce((latest, item) => {
+      return item.Timestamp > latest ? item.Timestamp : latest;
+    }, 0);
+
+    const currentTimestamp = Date.now();
+    const ageInHours = Math.floor((currentTimestamp - latestTimestamp) / (1000 * 60 * 60));
+    return ageInHours;
+  };
+
+  const parseTimestamp = (timestamp) => {
+    const parts = timestamp.split(" ");
+    const dateParts = parts[0].split("-");
+    const timeParts = parts[1].split(":");
+    const year = parseInt(dateParts[2], 10);
+    const month = parseInt(dateParts[1], 10) - 1;
+    const day = parseInt(dateParts[0], 10);
+    const hours = parseInt(timeParts[0], 10);
+    const minutes = parseInt(timeParts[1], 10);
+    const seconds = parseInt(timeParts[2], 10);
+
+    return new Date(year, month, day, hours, minutes, seconds).getTime();
   };
 
   const languageSizes = {
@@ -76,14 +113,14 @@ const App = () => {
                 <tr>
                   <th className="px-4 py-2 ">CVEs</th>
                   <th className="px-4 py-2">Size</th>
-                  <th className="px-4 py-2">Age</th>
+                  <th className="px-4 py-2">Age (Hours)</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
                   <td className="border px-4 py-2">{cveCount}</td>
                   <td className="border px-4 py-2">{languageSizes[selectedLanguage] || 'N/A'}</td>
-                  <td className="border px-4 py-2">{new Date(Date.now() - 86400000 * 30).toDateString()}</td>
+                  <td className="border px-4 py-2">{ageInHours || 'N/A'}</td>
                 </tr>
               </tbody>
             </table>
