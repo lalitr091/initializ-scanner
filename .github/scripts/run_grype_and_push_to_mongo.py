@@ -2,6 +2,7 @@ import subprocess
 import pymongo
 from datetime import datetime
 import json
+import os  # Import the os module
 import pytz  # Import the pytz library
 
 # Read image names from the image.txt file in the config folder
@@ -23,15 +24,20 @@ collection = db[collection_name]
 # Define the Indian Standard Time (IST) timezone
 ist_timezone = pytz.timezone("Asia/Kolkata")
 
-# Delete all documents in the collection
-collection.delete_many({})
-
 # Process two images in one go
 for i in range(0, len(image_names), 2):
     try:
         # Take two images at a time
         image_name_1 = image_names[i]
         image_name_2 = image_names[i + 1] if i + 1 < len(image_names) else None
+
+        # Get the size of each image
+        size_1 = os.path.getsize(image_name_1) / (1024 * 1024) if os.path.exists(image_name_1) else None
+        size_2 = os.path.getsize(image_name_2) / (1024 * 1024) if image_name_2 and os.path.exists(image_name_2) else None
+
+        print(f"Image size for {image_name_1}: {size_1:.2f} MB")
+        if image_name_2:
+            print(f"Image size for {image_name_2}: {size_2:.2f} MB")
 
         # Run Grype for each image and store the output in a variable
         grype_output_1 = subprocess.run(["grype", image_name_1, "-o", "json"], capture_output=True, text=True, check=True)
@@ -51,8 +57,8 @@ for i in range(0, len(image_names), 2):
         insert_data = {
             "timestamp": current_time_ist,
             "images": [
-                {"image": image_name_1, "vulnerability_count": vulnerability_count_1},
-                {"image": image_name_2, "vulnerability_count": vulnerability_count_2} if image_name_2 else None
+                {"image": image_name_1, "vulnerability_count": vulnerability_count_1, "size_mb": size_1},
+                {"image": image_name_2, "vulnerability_count": vulnerability_count_2, "size_mb": size_2} if image_name_2 else None
             ]
         }
 
@@ -65,6 +71,7 @@ for i in range(0, len(image_names), 2):
 
     except subprocess.CalledProcessError as e:
         print(f"Error running Grype for {image_name_1} or {image_name_2}: {e}")
+
 
 
 # import subprocess
