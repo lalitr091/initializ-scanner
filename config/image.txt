@@ -5,7 +5,7 @@ ruby
 public.ecr.aws/initializ/python
 python
 public.ecr.aws/initializ/java
-java:6b38
+openjdk:23-oraclelinux8
 public.ecr.aws/initializ/typescript
 jetbrains/qodana-js:latest
 public.ecr.aws/initializ/php
