@@ -31,19 +31,14 @@ for image_name in image_names:
         grype_data = json.loads(grype_output.stdout)
         vulnerability_count = len(grype_data.get("matches", []))
 
-        if vulnerability_count > 0:
-            # Insert vulnerability count into MongoDB
-            collection.insert_one({"image": image_name, "timestamp": datetime.now().strftime("%d-%m-%Y %H:%M:%S"),
-                                   "vulnerability_count": vulnerability_count})
-            print(f"{vulnerability_count} vulnerabilities found for {image_name}. Count inserted into MongoDB.")
-        else:
-            # Insert a message into MongoDB if no vulnerabilities found
-            collection.insert_one({"image": image_name, "timestamp": datetime.now().strftime("%d-%m-%Y %H:%M:%S"),
-                                   "message": "No vulnerabilities found."})
-            print(f"No vulnerabilities found in Grype output for {image_name}. Message inserted into MongoDB.")
+        # Insert vulnerability count into MongoDB
+        collection.insert_one({"image": image_name, "timestamp": datetime.now().strftime("%d-%m-%Y %H:%M:%S"),
+                               "vulnerability_count": vulnerability_count})
+        print(f"{vulnerability_count} vulnerabilities found for {image_name}. Count inserted into MongoDB.")
 
     except subprocess.CalledProcessError as e:
         print(f"Error running Grype for {image_name}: {e}")
+
 
 
 
