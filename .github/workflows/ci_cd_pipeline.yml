@@ -16,7 +16,7 @@ jobs:
       - name: Install grype
         run: |
           bash
-          curl -sSfL https://raw.githubusercontent.com/anchore/grype/main/install.sh | sh -s -- -b /usr/local/bin 0.73.4
+          curl -sSfL https://raw.githubusercontent.com/anchore/grype/main/install.sh | sh -s -- -b /usr/local/bin v0.73.4
           
       - name: Install pymongo
         run: pip install pymongo
