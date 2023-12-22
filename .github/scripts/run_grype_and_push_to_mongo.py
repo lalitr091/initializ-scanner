@@ -23,28 +23,45 @@ collection = db[collection_name]
 # Define the Indian Standard Time (IST) timezone
 ist_timezone = pytz.timezone("Asia/Kolkata")
 
-for image_name in image_names:
+# Process two images in one go
+for i in range(0, len(image_names), 2):
     try:
+        # Take two images at a time
+        image_name_1 = image_names[i]
+        image_name_2 = image_names[i + 1] if i + 1 < len(image_names) else None
+
         # Run Grype for each image and store the output in a variable
-        grype_output = subprocess.run(["grype", image_name, "-o", "json"], capture_output=True, text=True, check=True)
+        grype_output_1 = subprocess.run(["grype", image_name_1, "-o", "json"], capture_output=True, text=True, check=True)
+        grype_output_2 = subprocess.run(["grype", image_name_2, "-o", "json"], capture_output=True, text=True, check=True) if image_name_2 else None
 
         # Parse Grype output and delete existing data in MongoDB
-        collection.delete_many({"image": image_name})
+        collection.delete_many({"image": {"$in": [image_name_1, image_name_2]}})
 
-        # Insert the vulnerability count into MongoDB with IST timestamp
-        grype_data = json.loads(grype_output.stdout)
-        vulnerability_count = len(grype_data.get("matches", []))
+        # Insert the vulnerability counts into MongoDB with IST timestamp
+        grype_data_1 = json.loads(grype_output_1.stdout)
+        vulnerability_count_1 = len(grype_data_1.get("matches", []))
+
+        grype_data_2 = json.loads(grype_output_2.stdout) if grype_output_2 else None
+        vulnerability_count_2 = len(grype_data_2.get("matches", [])) if grype_data_2 else None
 
         # Get the current time in IST
         current_time_ist = datetime.now(ist_timezone).strftime("%d-%m-%Y %H:%M:%S")
 
-        # Insert vulnerability count into MongoDB with IST timestamp
-        collection.insert_one({"image": image_name, "timestamp": current_time_ist, "vulnerability_count": vulnerability_count})
-        print(f"{vulnerability_count} vulnerabilities found for {image_name}. Count inserted into MongoDB.")
+        # Insert vulnerability counts into MongoDB with IST timestamp
+        collection.insert_one({
+            "timestamp": current_time_ist,
+            "images": [
+                {"image": image_name_1, "vulnerability_count": vulnerability_count_1},
+                {"image": image_name_2, "vulnerability_count": vulnerability_count_2} if image_name_2 else None
+            ]
+        })
+
+        print(f"Vulnerabilities found for {image_name_1}: {vulnerability_count_1}")
+        if image_name_2:
+            print(f"Vulnerabilities found for {image_name_2}: {vulnerability_count_2}")
 
     except subprocess.CalledProcessError as e:
-        print(f"Error running Grype for {image_name}: {e}")
-
+        print(f"Error running Grype for {image_name_1} or {image_name_2}: {e}")
 
 
 # import subprocess
