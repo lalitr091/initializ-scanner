@@ -23,6 +23,9 @@ collection = db[collection_name]
 # Define the Indian Standard Time (IST) timezone
 ist_timezone = pytz.timezone("Asia/Kolkata")
 
+# Delete all documents in the collection
+collection.delete_many({})
+
 # Process two images in one go
 for i in range(0, len(image_names), 2):
     try:
@@ -33,9 +36,6 @@ for i in range(0, len(image_names), 2):
         # Run Grype for each image and store the output in a variable
         grype_output_1 = subprocess.run(["grype", image_name_1, "-o", "json"], capture_output=True, text=True, check=True)
         grype_output_2 = subprocess.run(["grype", image_name_2, "-o", "json"], capture_output=True, text=True, check=True) if image_name_2 else None
-
-        # Parse Grype output and delete existing data in MongoDB
-        collection.delete_many({"image": {"$in": [image_name_1, image_name_2]}})
 
         # Insert the vulnerability counts into MongoDB with IST timestamp
         grype_data_1 = json.loads(grype_output_1.stdout)
@@ -48,13 +48,16 @@ for i in range(0, len(image_names), 2):
         current_time_ist = datetime.now(ist_timezone).strftime("%d-%m-%Y %H:%M:%S")
 
         # Insert vulnerability counts into MongoDB with IST timestamp
-        collection.insert_one({
+        insert_data = {
             "timestamp": current_time_ist,
             "images": [
                 {"image": image_name_1, "vulnerability_count": vulnerability_count_1},
                 {"image": image_name_2, "vulnerability_count": vulnerability_count_2} if image_name_2 else None
             ]
-        })
+        }
+
+        print(f"Inserting data into MongoDB: {insert_data}")
+        collection.insert_one(insert_data)
 
         print(f"Vulnerabilities found for {image_name_1}: {vulnerability_count_1}")
         if image_name_2:
