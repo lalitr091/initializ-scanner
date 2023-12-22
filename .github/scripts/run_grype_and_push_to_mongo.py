@@ -1,6 +1,7 @@
 import subprocess
 import pymongo
 from datetime import datetime
+import json
 
 # Read image names from the image.txt file in the config folder
 image_file_path = "config/image.txt"
