@@ -1,6 +1,5 @@
 import subprocess
 import pymongo
-import json
 from datetime import datetime
 
 # Read image names from the image.txt file in the config folder
@@ -27,21 +26,20 @@ for image_name in image_names:
         # Parse Grype output and delete existing data in MongoDB
         collection.delete_many({"image": image_name})
 
-        # Insert the new data into MongoDB with epoch timestamp
+        # Insert the vulnerability count into MongoDB with epoch timestamp
         grype_data = json.loads(grype_output.stdout)
-        matches = grype_data.get("matches", [])
-        for match in matches:
-            # Include the image name, epoch timestamp in the MongoDB document
-            match["image"] = image_name
-            match["timestamp"] = datetime.now().strftime("%d-%m-%Y %H:%M:%S")
-            match["message"] = "Vulnerability found."
-            collection.insert_one(match)
+        vulnerability_count = len(grype_data.get("matches", []))
 
-        if not matches:
-            # Insert a message into MongoDB if no vulnerabilities found
-            collection.insert_one({"image": image_name, "timestamp": datetime.now().strftime("%d-%m-%Y %H:%M:%S"), "message": "No vulnerabilities found."})
-            print(f"No vulnerability matches found in Grype output for {image_name}. Message inserted into MongoDB.")
+        if vulnerability_count > 0:
+            # Insert vulnerability count into MongoDB
+            collection.insert_one({"image": image_name, "timestamp": datetime.now().strftime("%d-%m-%Y %H:%M:%S"),
+                                   "vulnerability_count": vulnerability_count})
+            print(f"{vulnerability_count} vulnerabilities found for {image_name}. Count inserted into MongoDB.")
         else:
-            print(f"Data inserted into MongoDB for {image_name} successfully, Vulnerability found")
+            # Insert a message into MongoDB if no vulnerabilities found
+            collection.insert_one({"image": image_name, "timestamp": datetime.now().strftime("%d-%m-%Y %H:%M:%S"),
+                                   "message": "No vulnerabilities found."})
+            print(f"No vulnerabilities found in Grype output for {image_name}. Message inserted into MongoDB.")
+
     except subprocess.CalledProcessError as e:
         print(f"Error running Grype for {image_name}: {e}")
