@@ -35,9 +35,16 @@ for i in range(0, len(image_names), 2):
         size_1 = os.path.getsize(image_name_1) / (1024 * 1024) if os.path.exists(image_name_1) else None
         size_2 = os.path.getsize(image_name_2) / (1024 * 1024) if image_name_2 and os.path.exists(image_name_2) else None
 
-        print(f"Image size for {image_name_1}: {size_1:.2f} MB")
+        if size_1 is not None:
+            print(f"Image size for {image_name_1}: {size_1:.2f} MB")
+        else:
+            print(f"Unable to determine size for {image_name_1}")
+
         if image_name_2:
-            print(f"Image size for {image_name_2}: {size_2:.2f} MB")
+            if size_2 is not None:
+                print(f"Image size for {image_name_2}: {size_2:.2f} MB")
+            else:
+                print(f"Unable to determine size for {image_name_2}")
 
         # Run Grype for each image and store the output in a variable
         grype_output_1 = subprocess.run(["grype", image_name_1, "-o", "json"], capture_output=True, text=True, check=True)
@@ -71,7 +78,6 @@ for i in range(0, len(image_names), 2):
 
     except subprocess.CalledProcessError as e:
         print(f"Error running Grype for {image_name_1} or {image_name_2}: {e}")
-
 
 
 # import subprocess
