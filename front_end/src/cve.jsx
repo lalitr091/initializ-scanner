@@ -70,8 +70,12 @@ const App = () => {
     }, 0);
 
     const currentTimestamp = Date.now();
-    const ageInHours = Math.floor((currentTimestamp - latestTimestamp) / (1000 * 60 * 60));
-    return ageInHours;
+    const timeDifference = currentTimestamp - latestTimestamp;
+  
+    const hours = Math.floor(timeDifference / (1000 * 60 * 60));
+    const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
+  
+    return { hours, minutes };
   };
 
   const parseTimestamp = (timestamp) => {
@@ -116,14 +120,14 @@ const App = () => {
                 <thead>
                   <tr>
                     <th className="px-4 py-2 ">CVEs</th>
-                    <th className="px-4 py-2">Age (Hours)</th>
+                    <th className="px-4 py-2">Age</th>
                     <th className="px-4 py-2">Size</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
                     <td className="border px-4 py-2">{cveCount}</td>
-                    <td className="border px-4 py-2">{ageInHours}</td>
+                    <td className="border px-4 py-2"> {`${ageInHours.hours} hours ${ageInHours.minutes} minutes`}</td>
                     <td className="border px-4 py-2">{size}</td>
                   </tr>
                 </tbody>
@@ -135,14 +139,14 @@ const App = () => {
                 <thead>
                   <tr>
                     <th className="px-4 py-2 ">CVEs</th>
-                    <th className="px-4 py-2">Age (Hours)</th>
+                    <th className="px-4 py-2">Age</th>
                     <th className="px-4 py-2">Size</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
                     <td className="border px-4 py-2">{othercve}</td>
-                    <td className="border px-4 py-2">{ageInHours}</td>
+                    <td className="border px-4 py-2"> {`${ageInHours.hours} hours ${ageInHours.minutes} minutes`}</td>
                     <td className="border px-4 py-2">{size}</td>
                   </tr>
                 </tbody>
