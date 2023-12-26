@@ -25,6 +25,26 @@ collection.delete_many({})
 # Define the Indian Standard Time (IST) timezone
 ist_timezone = pytz.timezone("Asia/Kolkata")
 
+thirty_days_ago = datetime.now() - timedelta(days=30)
+
+# Get a list of collections in the database
+all_collections = db.list_collection_names()
+
+# Iterate over collections and delete those created 30 days ago
+for collection_name in all_collections:
+    try:
+        # Parse the collection name to get the creation date
+        collection_date = datetime.strptime(collection_name.split('_')[0], "%d-%m-%Y")
+
+        # Check if the collection is older than 30 days
+        if collection_date < thirty_days_ago:
+            db[collection_name].drop()
+            print(f"Collection {collection_name} deleted. It was created on {collection_date.strftime('%d-%m-%Y')}")
+    except ValueError:
+        # Skip collections with invalid names (not following the expected date format)
+        continue
+
+
 # Process two images in one go
 for i in range(0, len(image_names), 2):
     try:
