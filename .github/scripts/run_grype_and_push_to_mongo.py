@@ -20,6 +20,7 @@ today_date = datetime.now().strftime("%d-%m-%Y")
 collection_name = f"{today_date}_cve_list"
 db = client.cve_db
 collection = db[collection_name]
+collection.delete_many({})
 
 # Define the Indian Standard Time (IST) timezone
 ist_timezone = pytz.timezone("Asia/Kolkata")
