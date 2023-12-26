@@ -28,10 +28,19 @@ const App = () => {
 
         setData(updatedData);
         setUniqueLanguages([...new Set(updatedData.map(item => item.Image))]);
+              const defaultLanguageData = updatedData.find(item => item.Image.toLowerCase() === 'go');
+
+      // Set the default values based on the data for the default language
+      setSelectedLanguage(defaultLanguageData.Image);
+      setCveCount(defaultLanguageData.VulnerabilityCount);
+      setother(defaultLanguageData.VulnerabilityCount1);
+      setSize(defaultLanguageData.Size);
+      setAgeInHours(calculateAgeForLanguage([defaultLanguageData]));
       })
       .catch(error => {
         console.error('Error fetching data:', error);
       });
+       
   }, []);
 
   const handleLanguageClick = (language) => {
@@ -98,9 +107,10 @@ const App = () => {
         ))}
       </div>
 
-      <div className="flex flex-wrap justify-center mt-[4rem] bg-[#fff] shadow-[0_8px_16px_rgba(52,67,244,.12)] rounded-md font-[700]">
+      <div className=" w-1/2 py-11 flex flex-wrap justify-center mt-[4rem] bg-[#fff] shadow-[0_8px_16px_rgba(52,67,244,.12)] rounded-md font-[900]">
         {selectedLanguage && (
           <div>
+          <h1 className=' font-[20px]'> Initializ Images</h1>
             <div className="m-4 p-6 border rounded w-[100%] bg-[#fff]">
               <table className="table-auto bg-[#fff]">
                 <thead>
@@ -119,6 +129,7 @@ const App = () => {
                 </tbody>
               </table>
             </div>
+            <h1 className=' capitalize'>{selectedLanguage}</h1>
             <div className="m-4 p-6 border rounded w-[100%] bg-[#fff]">
               <table className="table-auto bg-[#fff] capitalize">
                 <thead>
